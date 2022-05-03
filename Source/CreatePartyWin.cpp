@@ -287,10 +287,10 @@ CreatePartyWin::CreatePartyWin()
 	ZSButton *pButton;
 	ZSEdit *pName;
 		
-	int ButtonWidth;
+	int ButtonWidth, n;
 	ButtonWidth = rOne.right - rOne.left;
 
-	for(int n = 0; n < NUM_CREATE_MEMBERS; n++)
+	for(n = 0; n < NUM_CREATE_MEMBERS; n++)
 	{
 		pButton = new ZSButton(BUTTON_NONE, IDC_MEMBER_ONE + n, XYWH(rOne));
 		pButton->Show();
@@ -640,6 +640,7 @@ int CreateCharacterWin::Command(int IDFrom, int Command, int Param)
 {
 	ZSWindow *pChild;
 	char *ChildText;
+	int n;
 	if(Command == COMMAND_BUTTON_CLICKED)
 	{
 		if(IDFrom == IDC_QUIT)
@@ -749,7 +750,7 @@ int CreateCharacterWin::Command(int IDFrom, int Command, int Param)
 					MaxFree = CurFree = (int)SA->GetValue();
 					delete SA;
 
-					for(int n = 0; n < NumSkills; n++)
+					for(n = 0; n < NumSkills; n++)
 					{
 						StoredSkills[n] = pTarget->GetData(n + StartSkill).Value;		
 					}
@@ -1106,7 +1107,7 @@ CreateCharacterWin::CreateCharacterWin(Creature *pToCreate)
 	StartSkill = pFlameBase->GetIndex("SWORD");
 	EndSkill = pFlameBase->GetIndex("THAUMATURGY");
 	NumSkills = (EndSkill - StartSkill) + 1;
-	int LastCombat;
+	int LastCombat, n;
 	LastCombat = pFlameBase->GetIndex("ARMOR");
 	NumCombat = LastCombat - StartSkill;
 	NumNonMagic = pFlameBase->GetIndex("NATURE") - StartSkill;
@@ -1130,7 +1131,7 @@ CreateCharacterWin::CreateCharacterWin(Creature *pToCreate)
 
 	fp = SafeFileOpen("backgrounds.txt","rt");
 
-	for(int n = 0; n < NumBackgrounds; n++)
+	for(n = 0; n < NumBackgrounds; n++)
 	{
 		SeekTo(fp,"Name:");
 		Backgrounds[n].Name = GetStringNoWhite(fp);
@@ -1580,11 +1581,12 @@ int CreateCharacterWin::RightButtonUp(int x, int y)
 void CreateCharacterWin::ShowSkills()
 {
 	ZSWindow *pText;
+	int n;
 
 	pText = GetChild(IDC_BACKGROUNDS);
 	pText->Hide();
 
-	for(int n = 0; n < NumSkills; n++)
+	for(n = 0; n < NumSkills; n++)
 	{
 		pText = GetChild(IDC_SKILLNAME1 + n);
 		pText->Show();
@@ -1644,11 +1646,12 @@ void CreateCharacterWin::ShowSkills()
 void CreateCharacterWin::HideSkills()
 {
 	ZSWindow *pText;
+	int n;
 
 	pText = GetChild(IDC_BACKGROUNDS);
 	pText->Show();
 
-	for(int n = 0; n < NumSkills; n++)
+	for(n = 0; n < NumSkills; n++)
 	{
 		pText = GetChild(IDC_SKILLNAME1 + n);
 		pText->Hide();
@@ -1698,9 +1701,9 @@ void CreateCharacterWin::StoreTarget()
 void CreateCharacterWin::ResetTarget()
 {
 	ZSWindow *pWin;
-	int StatStart;
+	int StatStart, n;
 	StatStart = pTarget->GetIndex("STRENGTH");
-	for(int n = 0; n < 7; n ++)
+	for(n = 0; n < 7; n ++)
 	{
 		pTarget->SetData(StatStart + n, StoredStats[n]);
 		pWin = GetChild(IDC_STAT1 + n);

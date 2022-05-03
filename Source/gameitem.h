@@ -93,7 +93,7 @@ public:
 	void AddToArea(Area *pArea);
 	void AddToWorld();
 
-	operator = (GameItem &OtherThing);
+	GameItem& operator = (GameItem &OtherThing);
 
 	DATA_FIELD_T GetData(int fieldnum);			
     DATA_FIELD_T GetData(char *fieldname);	

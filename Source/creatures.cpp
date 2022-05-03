@@ -7274,7 +7274,7 @@ int LoadBinCreatures(FILE *fp)
 {
 	Creature::NumCreatures = 0;
 
-	int NewNumCreatures;
+	int NewNumCreatures, n;
 	unsigned long CheckSum;
 	char blarg[64];
 
@@ -7297,7 +7297,7 @@ int LoadBinCreatures(FILE *fp)
 
 	CheckSum = ftell(fp);
 
-	for(int n = 0; n < NewNumCreatures -1; n++)
+	for(n = 0; n < NewNumCreatures -1; n++)
 	{
 		pCreature->LoadBin(fp);
 		fread(&pCreature->Created,sizeof(BOOL),1,fp);
@@ -9207,7 +9207,7 @@ int Creature::Give(Thing *ToReceive, int Quantity)
 */
 }
 
-Creature::operator = (Creature &OtherThing)
+Creature& Creature::operator = (Creature &OtherThing)
 {
 	for(int n = 0; n < NumFields; n++)
 	{
@@ -9233,6 +9233,7 @@ Creature::operator = (Creature &OtherThing)
 			break;
 		}
 	}
+	return *this;
 }
 
 void Creature::Save(FILE *fp)

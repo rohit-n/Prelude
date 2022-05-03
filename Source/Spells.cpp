@@ -148,7 +148,7 @@ BOOL SpellList::Load(const char *filename)
 {
 	FILE *fp;
 	int n;
-	char *cp;
+	const char *cp;
 	cp = strchr(filename,'.');
 	int TempID;
 	fpos_t fpos;

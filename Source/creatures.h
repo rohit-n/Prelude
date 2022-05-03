@@ -458,7 +458,7 @@ public:
 // Debug ----------------------------------------------
 	void OutputDebugInfo();
 
-	operator = (Creature &OtherThing);
+	Creature& operator = (Creature &OtherThing);
 
 	static void Sort();
 	static void FixSchedules();

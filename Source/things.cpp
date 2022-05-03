@@ -165,7 +165,8 @@ DATA_FIELD_T Thing::GetData(char *fieldname)
 	//when a match is found return the value at that fieldname
 	//if no match is found display an error message
 	int fn = 0;
-	for(int n = 0; n < NumFields; n++)
+	int n;
+	for(n = 0; n < NumFields; n++)
 	{
 		if(!strcmp(fieldname,&DataFieldNames[fn]))
 		{
@@ -793,8 +794,8 @@ int Thing::LoadBin(FILE *fp)
 
 	DataFields = new DATA_FIELD_T[NumFields];
 
-	int Length;
-	for(int n = 0; n < NumFields; n++)
+	int Length, n;
+	for(n = 0; n < NumFields; n++)
 	{
 		switch(DataTypes[n])
 		{
@@ -930,9 +931,9 @@ int Thing::SaveBin(FILE *fp)
 	fwrite(&MeshNum, sizeof(MeshNum),1,fp);
 	fwrite(&TextureNum, sizeof(TextureNum),1,fp);
 
-	int Length;
+	int Length, n;
 	
-	for(int n = 0; n < NumFields; n++)
+	for(n = 0; n < NumFields; n++)
 	{
 		switch(DataTypes[n])
 		{
@@ -1032,7 +1033,7 @@ bool Thing::operator == (Thing &ThingOne)
 	return true;
 }
 
-Thing::operator = (Thing &OtherThing)
+Thing& Thing::operator = (Thing &OtherThing)
 {
 	for(int n = 0; n < NumFields; n++)
 	{
@@ -1064,6 +1065,7 @@ Thing::operator = (Thing &OtherThing)
 			break;
 		}
 	}
+	return *this;
 }
 
 

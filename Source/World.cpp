@@ -2709,6 +2709,7 @@ void World::BringUpToDate()
 	
 	//create a new region called the valley
 	Area *pValley;
+	int n;
 	
 	pValley = new Area();
 
@@ -2761,7 +2762,7 @@ void World::BringUpToDate()
 
 	Chunk *pChunk;
 
-	for(int n = 0; n < WORLD_CHUNK_WIDTH * WORLD_CHUNK_HEIGHT; n++)
+	for(n = 0; n < WORLD_CHUNK_WIDTH * WORLD_CHUNK_HEIGHT; n++)
 	{
 		if(pValley->Header.ChunkOffsets[n])
 		{

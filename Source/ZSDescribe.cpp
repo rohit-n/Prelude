@@ -79,12 +79,12 @@ void ZSDescribe::AddItem(char *Text)
 		}
 	}
 
-	int NumLines;
+	int NumLines, n;
 	char **NewLines;
 
 	NumLines = Engine->Graphics()->GetFontEngine()->BreakText(Text, &NewLines, (Bounds.right - Bounds.left) - (Border * 3 + 4));
 
-	for(int n = 0; n < NumLines; n++)
+	for(n = 0; n < NumLines; n++)
 	{
 
 		pNewLI = new DescribeItem(NewLines[n], NumItems);
@@ -202,12 +202,12 @@ void ZSDescribe::AddItem(char *Text, int NewTextColor)
 		}
 	}
 
-	int NumLines;
+	int NumLines, n;
 	char **NewLines;
 
 	NumLines = Engine->Graphics()->GetFontEngine()->BreakText(Text, &NewLines, (Bounds.right - Bounds.left) - 30);
 
-	for(int n = 0; n < NumLines; n++)
+	for(n = 0; n < NumLines; n++)
 	{
 
 		pNewLI = new DescribeItem(NewLines[n], NumItems);

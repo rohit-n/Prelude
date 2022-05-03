@@ -527,6 +527,7 @@ HWND ZSGraphicsSystem::Init(HINSTANCE hInstance)
 	DEBUG_INFO("Beginning Graphics system Init\n");
 
 	FILE *fp;
+	int n;
 	DDSURFACEDESC2	ddsd;
 
 	WNDCLASS winclass;	// this will hold the class we create
@@ -958,7 +959,7 @@ HWND ZSGraphicsSystem::Init(HINSTANCE hInstance)
 	CreateProjectionMatrix(ViewDim, ViewDim, 80.0);
 
 	DEBUG_INFO("set up the drawing rectangles from the mouse cursor\n");
-	for(int n = 0; n < (NUM_CURSORS * MAX_CURSOR_FRAMES); n++)
+	for(n = 0; n < (NUM_CURSORS * MAX_CURSOR_FRAMES); n++)
 	{
 		MouseCursor[n].left = (n % 5) * MOUSE_CURSOR_WIDTH;
 		MouseCursor[n].top = (n / 5) * MOUSE_CURSOR_HEIGHT;

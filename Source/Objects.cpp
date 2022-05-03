@@ -88,7 +88,7 @@ D3DVECTOR *Object::GetPosition()
 	return &Position;
 }
 
-int Object::GetFrame();
+//int Object::GetFrame();
 
 float Object::GetMyAngle()
 {

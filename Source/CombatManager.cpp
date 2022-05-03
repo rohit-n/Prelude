@@ -1696,9 +1696,10 @@ Object *Combat::FindNearestOpponent(Object *pFrom)
 {
 //first check enemies in range
 	float fDist;
+	int n;
 	Object *pCurEnemy = NULL;
 	fDist = 500.0f;
-	for(int n = 0; n < EnemiesInRange; n++)
+	for(n = 0; n < EnemiesInRange; n++)
 	{	
 		if(EnemyDistance[n] < fDist)
 		{
@@ -1767,8 +1768,9 @@ Object *Combat::FindNearestLiveOpponent(Object *pFrom)
 	//first check enemies in range
 	float fDist;
 	Object *pCurEnemy = NULL;
+	int n;
 	fDist = 500.0f;
-	for(int n = 0; n < EnemiesInRange; n++)
+	for(n = 0; n < EnemiesInRange; n++)
 	{	
 		if(EnemyDistance[n] < fDist)
 		{

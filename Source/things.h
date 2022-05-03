@@ -296,7 +296,7 @@ public:
 
 // Operators ------------------------------------------
 
-   operator = (Thing& otherThing);		//assignment operator
+   Thing& operator = (Thing& otherThing);		//assignment operator
 	bool operator == (Thing& ThingOne);
 
 };

@@ -192,6 +192,7 @@ void CaveWall::CreateSegments(int x1, int y1, int x2, int y2)
 
 	int xn;
 	int yn;
+	int n;
 
 	xn = x1;
 	yn = y1;
@@ -362,7 +363,7 @@ void CaveWall::CreateSegments(int x1, int y1, int x2, int y2)
 	vNormBottom = vNormTop;
 	vNormBottom.z *= -1.0f;
 
-	for(int n = 0; n < NumSegments; n++)
+	for(n = 0; n < NumSegments; n++)
 	{
 		//top row
 		pVertsTop[n*2].x = SegList[n].vStart.x;

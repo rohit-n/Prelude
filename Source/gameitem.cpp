@@ -512,7 +512,7 @@ BOOL GameItem::RayIntersect(D3DVECTOR *vRayStart, D3DVECTOR *vRayEnd)
 	}
 }
 
-GameItem::operator =(GameItem &OtherThing)
+GameItem& GameItem::operator =(GameItem &OtherThing)
 {
 	this->pItem = OtherThing.pItem;
 	this->Quantity = OtherThing.Quantity;
@@ -522,6 +522,7 @@ GameItem::operator =(GameItem &OtherThing)
 	this->Location = OtherThing.Location;
 	this->pRegionIn = OtherThing.pRegionIn;
 	this->pOwner = OtherThing.pOwner;
+	return *this;
 }
 
 DATA_FIELD_T GameItem::GetData(int fieldnum)

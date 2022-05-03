@@ -134,12 +134,13 @@ void EEWin::UpdateSlotText()
 
 void EEWin::SyncToMesh()
 {
+	int n;
 	if(CurFrame >= Engine->GetMesh(CurMesh)->GetNumFrames())
 	{
 		CurFrame = Engine->GetMesh(CurMesh)->GetNumFrames() - 1;
 	}
 
-	for(int n = 0; n < 10; n ++)
+	for(n = 0; n < 10; n ++)
 	{
 
 		if(Equipslots[n].LinkIndex >= Engine->GetMesh(CurMesh)->numvertex)

@@ -118,11 +118,12 @@ int ZSSoundSystem::PlayEffect(int n)
 
 int ZSSoundSystem::PlayEffect(const char *EffectName)
 {
+	int n;
 	if(!FXOn) return FALSE;
 	
 	if(!NumFX) return FALSE;
 
-	for(int n = 0; n < NumFX; n++)
+	for(n = 0; n < NumFX; n++)
 	{
 		if(!strcmp(FX[n].GetName(),EffectName))
 		{
@@ -147,6 +148,7 @@ int ZSSoundSystem::Init(HWND hWindow)
 	}
 
 	BASS_INFO BI;
+	int n;
 
 	BASS_Start();
 
@@ -197,7 +199,7 @@ int ZSSoundSystem::Init(HWND hWindow)
 
 	char *SoundFileName;
 
-	for(int n = 0; n < NumFX; n++)
+	for(n = 0; n < NumFX; n++)
 	{
 		SeekTo(fp,"File:");
 		SoundFileName = GetStringNoWhite(fp);
@@ -238,7 +240,7 @@ void ZSSoundSystem::ShutDown()
 		delete[] FX;
 	}
 
-	if(MusicSuite)
+	if(Music)
 	{
 		DEBUG_INFO("Deleting Music\n");
 		delete[] Music;

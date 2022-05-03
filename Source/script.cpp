@@ -208,7 +208,7 @@ bool ScriptArg::operator == (ScriptArg& CompArg)
 	return FALSE;
 }
 
-ScriptArg::operator = (ScriptArg& OtherArg)
+ScriptArg& ScriptArg::operator = (ScriptArg& OtherArg)
 {
 	Type = OtherArg.GetType();
 
@@ -229,7 +229,7 @@ ScriptArg::operator = (ScriptArg& OtherArg)
 			break;
 	}
 	
-	return FALSE;
+	return *this;
 }
 
 

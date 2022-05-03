@@ -36,6 +36,7 @@ void ZSEdit::AddChar(int ASCIICode)
 {
 	char *OldText;
 	char *NewText;
+	int n;
 
 	OldText = GetText();
 	
@@ -64,7 +65,7 @@ void ZSEdit::AddChar(int ASCIICode)
 		return;
 
 	}
-	for(int n = 0; n < CharOffset; n++)
+	for(n = 0; n < CharOffset; n++)
 	{
 		NewText[n] = OldText[n];
 	}
@@ -103,6 +104,7 @@ void ZSEdit::BackSpace()
 {
 	char *OldText;
 	char *NewText;
+	int n;
 
 	OldText = GetText();
 
@@ -125,7 +127,7 @@ void ZSEdit::BackSpace()
 		return;
 	}
 
-	for(int n = 0; n < CharOffset -1; n++)
+	for(n = 0; n < CharOffset -1; n++)
 	{
 		NewText[n] = OldText[n];
 	}
@@ -165,6 +167,7 @@ void ZSEdit::Delete()
 {
 	char *OldText;
 	char *NewText;
+	int n;
 
 	OldText = GetText();
 
@@ -192,7 +195,7 @@ void ZSEdit::Delete()
 		return;
 	}
 
-	for(int n = 0; n < CharOffset; n++)
+	for(n = 0; n < CharOffset; n++)
 	{
 		NewText[n] = OldText[n];
 	}

@@ -227,6 +227,7 @@ void EditRegion::DivideWall(EditWall *ToDivide, D3DVECTOR *vAt)
 
 void EditWall::CreateMesh()
 {
+	int n;
 	if(!Here) return;
 	
 	if(Here->Front)
@@ -434,7 +435,7 @@ void EditWall::CreateMesh()
 
 	VFrontNormal = Normalize(CrossProduct(VA,VB));
 	
-	for(int n = 0; n < 4; n ++)
+	for(n = 0; n < 4; n ++)
 	{
 		if(Here->Front->RegionFacing->GetType() == REGION_EXTERIOR)
 		{
@@ -609,7 +610,8 @@ void EditWall::Draw()
 float EditRoom::SumAngles()
 {
 	AngleTotal = 0;
-	for(int n = 0; n < NumWalls -1; n++)
+	int n;
+	for(n = 0; n < NumWalls -1; n++)
 	{
 		AngleTotal += RadToDeg(GetWallAngle(Walls[n+1],Walls[n]));
 	}

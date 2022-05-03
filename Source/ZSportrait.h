@@ -11,7 +11,7 @@ private:
 	Thing *pTarget;
 	static LPDIRECTDRAWSURFACE7 PortraitBackground;
 	static LPDIRECTDRAWSURFACE7 PortraitGems;
-	static NumPortraits;
+	static int NumPortraits;
 	LPDIRECTDRAWSURFACE7 pddFace;
 
 	BOOL NeedRedraw;

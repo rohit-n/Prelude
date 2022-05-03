@@ -78,7 +78,7 @@ public:
 	void SetCreature();
 
 	bool operator == (ScriptArg& CompArg);
-	operator = (ScriptArg& OtherArg);
+	ScriptArg& operator = (ScriptArg& OtherArg);
 };
 
 
