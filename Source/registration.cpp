@@ -183,7 +183,7 @@ inline BOOL ValidateKey(unsigned char *keytovalidate)
 		return TRUE;
    }
      
-   return TRUE;
+   return FALSE;
 }
 
 void MaskStrings(unsigned char *string, unsigned char *mask, unsigned char *result)
@@ -280,12 +280,14 @@ LRESULT CALLBACK DlgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 HRESULT Register()
 {
-	HRESULT hres;
+	HRESULT hres = IDCANCEL;
 	
 	GetHardwareID();
 	GetRegisteredKey();
-	if(!ValidateKey(RegistrationKey))
-		hres = DialogBox(NULL,(LPSTR)MAKEINTRESOURCE(IDD_DIALOG1),NULL,(DLGPROC)DlgProc);
+	if (!ValidateKey(RegistrationKey))
+	{
+		hres = DialogBox(NULL, (LPSTR)MAKEINTRESOURCE(IDD_DIALOG1), NULL, (DLGPROC)DlgProc);
+	}
 
 	if(hres == IDCANCEL)
 	{
