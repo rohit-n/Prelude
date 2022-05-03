@@ -101,7 +101,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\MyProjects\Prelude\Prelude\DXSource;C:\MyProjects\Prelude\Source;C:\MyProjects\Prelude\Prelude\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Prelude\DXSource;C:\MyProjects\Prelude\Source;C:\MyProjects\Prelude\Prelude\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -521,15 +521,14 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\dx7a\lib\d3dim.lib" />
-    <Library Include="..\..\..\dx7a\lib\d3dx.lib" />
-    <Library Include="..\..\..\dx7a\lib\ddraw.lib" />
-    <Library Include="..\..\..\dx7a\lib\dinput.lib" />
-    <Library Include="..\..\..\dx7a\lib\dplayx.lib" />
-    <Library Include="..\..\..\dx7a\lib\DSETUP.lib" />
-    <Library Include="..\..\..\dx7a\lib\dsound.lib" />
-    <Library Include="..\..\..\dx7a\lib\dxguid.lib" />
-    <Library Include="..\..\..\Program Files\Microsoft Visual Studio\Vc98\Lib\Winmm.lib" />
+    <Library Include="..\..\..\DXSource\d3dim.lib" />
+    <Library Include="..\..\..\DXSource\d3dx.lib" />
+    <Library Include="..\..\..\DXSource\ddraw.lib" />
+    <Library Include="..\..\..\DXSource\dinput.lib" />
+    <Library Include="..\..\..\DXSource\dplayx.lib" />
+    <Library Include="..\..\..\DXSource\DSETUP.lib" />
+    <Library Include="..\..\..\DXSource\dsound.lib" />
+    <Library Include="..\..\..\DXSource\dxguid.lib" />
     <Library Include="..\Source\bass.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
