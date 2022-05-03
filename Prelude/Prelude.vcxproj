@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="autotest|Win32">
+      <Configuration>autotest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Logged|Win32">
+      <Configuration>Logged</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BC86DC9E-1DC4-4C8C-9087-F15FD0443194}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Logged|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='autotest|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Logged|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='autotest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.28127.55</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='autotest|Win32'">
+    <OutDir>.\Prelude___Win32_autotest\</OutDir>
+    <IntDir>.\Prelude___Win32_autotest\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Logged|Win32'">
+    <OutDir>.\Prelude___Win32_Logged\</OutDir>
+    <IntDir>.\Prelude___Win32_Logged\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/Prelude.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\MyProjects\Prelude\Prelude\DXSource;C:\MyProjects\Prelude\Source;C:\MyProjects\Prelude\Prelude\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/Prelude.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <BrowseInformationFile>.\Debug/</BrowseInformationFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>c:\ToTest\Prelude.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/Prelude.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>.\Debug/Prelude.map</MapFileName>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/Prelude.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='autotest|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Prelude___Win32_autotest/Prelude.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;AUTOTEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Prelude___Win32_autotest/Prelude.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Prelude___Win32_autotest/</AssemblerListingLocation>
+      <ObjectFileName>.\Prelude___Win32_autotest/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Prelude___Win32_autotest/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>c:\windows\desktop\ToTest\PreludeAuto.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Prelude___Win32_autotest/PreludeAuto.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>.\Prelude___Win32_autotest/PreludeAuto.map</MapFileName>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Prelude___Win32_autotest/Prelude.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/Prelude.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/Prelude.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>C:\Windows\Desktop\ToTest\Prelude Release.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>.\Release/Prelude Release.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/Prelude.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Logged|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Prelude___Win32_Logged/Prelude.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;SHOW_SCRIPT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Prelude___Win32_Logged/Prelude.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Prelude___Win32_Logged/</AssemblerListingLocation>
+      <ObjectFileName>.\Prelude___Win32_Logged/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Prelude___Win32_Logged/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>c:\windows\desktop\ToTest\Prelude.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Prelude___Win32_Logged/Prelude.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Prelude___Win32_Logged/Prelude.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\actionmenuclass.cpp" />
+    <ClCompile Include="..\Source\actions.cpp" />
+    <ClCompile Include="..\Source\area.cpp" />
+    <ClCompile Include="..\Source\attacks.cpp" />
+    <ClCompile Include="..\Source\aura.cpp" />
+    <ClCompile Include="..\Source\Barter.cpp" />
+    <ClCompile Include="..\Source\blood.cpp" />
+    <ClCompile Include="..\Source\castaura.cpp" />
+    <ClCompile Include="..\Source\cavewall.cpp" />
+    <ClCompile Include="..\Source\CharacterWin.cpp" />
+    <ClCompile Include="..\Source\Chunks.cpp" />
+    <ClCompile Include="..\Source\combatdemomain.cpp" />
+    <ClCompile Include="..\Source\CombatManager.cpp" />
+    <ClCompile Include="..\Source\Corpse.cpp" />
+    <ClCompile Include="..\Source\CreatePartyWin.cpp" />
+    <ClCompile Include="..\Source\creatures.cpp" />
+    <ClCompile Include="..\Source\deathwin.cpp" />
+    <ClCompile Include="..\Source\EditRegion.cpp" />
+    <ClCompile Include="..\Source\entrance.cpp" />
+    <ClCompile Include="..\Source\equipeditorwin.cpp" />
+    <ClCompile Include="..\Source\equipobject.cpp" />
+    <ClCompile Include="..\Source\equipwin.cpp" />
+    <ClCompile Include="..\Source\events.cpp" />
+    <ClCompile Include="..\Source\explosion.cpp" />
+    <ClCompile Include="..\Source\fireball.cpp" />
+    <ClCompile Include="..\Source\Flags.cpp" />
+    <ClCompile Include="..\Source\forest.cpp" />
+    <ClCompile Include="..\Source\fountain.cpp" />
+    <ClCompile Include="..\Source\gameitem.cpp" />
+    <ClCompile Include="..\Source\Generatworld.cpp" />
+    <ClCompile Include="..\Source\healaura.cpp" />
+    <ClCompile Include="..\Source\inventorywin.cpp" />
+    <ClCompile Include="..\Source\items.cpp" />
+    <ClCompile Include="..\Source\journal.cpp" />
+    <ClCompile Include="..\Source\LoadObject.cpp" />
+    <ClCompile Include="..\Source\Locator.cpp" />
+    <ClCompile Include="..\Source\MainWindow.cpp" />
+    <ClCompile Include="..\Source\maplocator.cpp" />
+    <ClCompile Include="..\Source\mapwin.cpp" />
+    <ClCompile Include="..\Source\meshfx.cpp" />
+    <ClCompile Include="..\Source\minimap.cpp" />
+    <ClCompile Include="..\Source\missile.cpp" />
+    <ClCompile Include="..\Source\modifiers.cpp" />
+    <ClCompile Include="..\Source\MovePointer.cpp" />
+    <ClCompile Include="..\Source\Objects.cpp" />
+    <ClCompile Include="..\Source\Party.cpp" />
+    <ClCompile Include="..\Source\path.cpp" />
+    <ClCompile Include="..\Source\pattern.cpp" />
+    <ClCompile Include="..\Source\peopleedit.cpp" />
+    <ClCompile Include="..\Source\Pickpocket.cpp" />
+    <ClCompile Include="..\Source\portals.cpp" />
+    <ClCompile Include="..\Source\regions.cpp" />
+    <ClCompile Include="..\Source\registration.cpp" />
+    <ClCompile Include="..\Source\script.cpp" />
+    <ClCompile Include="..\Source\scriptfuncs.cpp" />
+    <ClCompile Include="..\Source\skillwin.cpp" />
+    <ClCompile Include="..\Source\spellbook.cpp" />
+    <ClCompile Include="..\Source\spellfuncs.cpp" />
+    <ClCompile Include="..\Source\Spells.cpp" />
+    <ClCompile Include="..\Source\StartScreen.cpp" />
+    <ClCompile Include="..\Source\texturemanager.cpp" />
+    <ClCompile Include="..\Source\things.cpp" />
+    <ClCompile Include="..\Source\translucentwindow.cpp" />
+    <ClCompile Include="..\Source\updateworld.cpp" />
+    <ClCompile Include="..\Source\walls.cpp" />
+    <ClCompile Include="..\Source\water.cpp" />
+    <ClCompile Include="..\Source\wave.c" />
+    <ClCompile Include="..\Source\wavread.cpp" />
+    <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="..\Source\worldedit.cpp" />
+    <ClCompile Include="..\Source\zsactionwindow.cpp" />
+    <ClCompile Include="..\Source\ZSaskwin.cpp" />
+    <ClCompile Include="..\Source\zsbrushwindow.cpp" />
+    <ClCompile Include="..\Source\ZSbutton.cpp" />
+    <ClCompile Include="..\Source\ZSCaveEdit.cpp" />
+    <ClCompile Include="..\Source\zsconfirm.cpp" />
+    <ClCompile Include="..\Source\zscontainer.cpp" />
+    <ClCompile Include="..\Source\ZScutscene.cpp" />
+    <ClCompile Include="..\Source\ZSDescribe.cpp" />
+    <ClCompile Include="..\Source\ZSEditWindow.cpp" />
+    <ClCompile Include="..\Source\ZSEngine.cpp" />
+    <ClCompile Include="..\Source\zsfire.cpp" />
+    <ClCompile Include="..\Source\ZSFloatSpin.cpp" />
+    <ClCompile Include="..\Source\ZSFontEngine.cpp" />
+    <ClCompile Include="..\Source\zsgetnumber.cpp" />
+    <ClCompile Include="..\Source\zsgettarget.cpp" />
+    <ClCompile Include="..\Source\ZSGetText.cpp" />
+    <ClCompile Include="..\Source\ZSGraphics.cpp" />
+    <ClCompile Include="..\Source\ZSHelpWin.cpp" />
+    <ClCompile Include="..\Source\ZSinput.cpp" />
+    <ClCompile Include="..\Source\zsIntSpin.cpp" />
+    <ClCompile Include="..\Source\zsitemslot.cpp" />
+    <ClCompile Include="..\Source\zslistbox.cpp" />
+    <ClCompile Include="..\Source\ZSMainDescribe.cpp" />
+    <ClCompile Include="..\Source\zsmenubar.cpp" />
+    <ClCompile Include="..\Source\zsMessage.cpp" />
+    <ClCompile Include="..\Source\ZSModel.cpp" />
+    <ClCompile Include="..\Source\ZSModelEx.cpp" />
+    <ClCompile Include="..\Source\ZSobjectwindow.cpp" />
+    <ClCompile Include="..\Source\zsOldlistbox.cpp" />
+    <ClCompile Include="..\Source\ZSOptions.cpp" />
+    <ClCompile Include="..\Source\ZSparticle.cpp" />
+    <ClCompile Include="..\Source\ZSportrait.cpp" />
+    <ClCompile Include="..\Source\ZSProgress.cpp" />
+    <ClCompile Include="..\Source\ZSREGIONEDIT.cpp" />
+    <ClCompile Include="..\Source\ZSRest.cpp" />
+    <ClCompile Include="..\Source\ZSSaveLoad.cpp" />
+    <ClCompile Include="..\Source\zssaychar.cpp" />
+    <ClCompile Include="..\Source\ZSScriptWindow.cpp" />
+    <ClCompile Include="..\Source\ZSShrinkWindow.cpp" />
+    <ClCompile Include="..\Source\ZSsound.cpp" />
+    <ClCompile Include="..\Source\ZSSpellWindow.cpp" />
+    <ClCompile Include="..\Source\ZSTalk.cpp" />
+    <ClCompile Include="..\Source\ZSText.cpp" />
+    <ClCompile Include="..\Source\ZStextures.cpp" />
+    <ClCompile Include="..\Source\ZStoolwindow.cpp" />
+    <ClCompile Include="..\Source\ZSutilities.cpp" />
+    <ClCompile Include="..\Source\ZSVerticalScroll.cpp" />
+    <ClCompile Include="..\Source\zsweapontrace.cpp" />
+    <ClCompile Include="..\Source\ZSwindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\actionmenuclass.h" />
+    <ClInclude Include="..\Source\actions.h" />
+    <ClInclude Include="..\Source\animrange.h" />
+    <ClInclude Include="..\Source\area.h" />
+    <ClInclude Include="..\Source\attacks.h" />
+    <ClInclude Include="..\Source\aura.h" />
+    <ClInclude Include="..\Source\Barter.h" />
+    <ClInclude Include="..\Source\blood.h" />
+    <ClInclude Include="..\Source\CastAura.h" />
+    <ClInclude Include="..\Source\cavewall.h" />
+    <ClInclude Include="..\Source\CharacterWin.h" />
+    <ClInclude Include="..\Source\Chunks.h" />
+    <ClInclude Include="..\Source\CombatManager.h" />
+    <ClInclude Include="..\Source\Corpse.h" />
+    <ClInclude Include="..\Source\CreatePartyWin.h" />
+    <ClInclude Include="..\Source\creatures.h" />
+    <ClInclude Include="..\Source\deathwin.h" />
+    <ClInclude Include="..\Source\defs.h" />
+    <ClInclude Include="..\Source\EditRegion.h" />
+    <ClInclude Include="..\Source\entrance.h" />
+    <ClInclude Include="..\Source\equipeditorwin.h" />
+    <ClInclude Include="..\Source\equipobject.h" />
+    <ClInclude Include="..\Source\Equipwin.h" />
+    <ClInclude Include="..\Source\events.h" />
+    <ClInclude Include="..\Source\explosion.h" />
+    <ClInclude Include="..\Source\file_input.h" />
+    <ClInclude Include="..\Source\fireball.h" />
+    <ClInclude Include="..\Source\Flags.h" />
+    <ClInclude Include="..\Source\forest.h" />
+    <ClInclude Include="..\Source\fountain.h" />
+    <ClInclude Include="..\Source\gameitem.h" />
+    <ClInclude Include="..\Source\healaura.h" />
+    <ClInclude Include="..\Source\inventorywin.h" />
+    <ClInclude Include="..\Source\items.h" />
+    <ClInclude Include="..\Source\journal.h" />
+    <ClInclude Include="..\Source\Locator.h" />
+    <ClInclude Include="..\Source\mainwindow.h" />
+    <ClInclude Include="..\Source\maplocator.h" />
+    <ClInclude Include="..\Source\mapwin.h" />
+    <ClInclude Include="..\Source\meshfx.h" />
+    <ClInclude Include="..\Source\Minimap.h" />
+    <ClInclude Include="..\Source\missile.h" />
+    <ClInclude Include="..\Source\modifiers.h" />
+    <ClInclude Include="..\Source\MovePointer.h" />
+    <ClInclude Include="..\Source\Objects.h" />
+    <ClInclude Include="..\Source\party.h" />
+    <ClInclude Include="..\Source\path.h" />
+    <ClInclude Include="..\Source\pattern.h" />
+    <ClInclude Include="..\Source\peopleedit.h" />
+    <ClInclude Include="..\Source\pickpocket.h" />
+    <ClInclude Include="..\Source\portals.h" />
+    <ClInclude Include="..\Source\regions.h" />
+    <ClInclude Include="..\Source\registration.h" />
+    <ClInclude Include="..\Source\Resfile.h" />
+    <ClInclude Include="..\Source\script.h" />
+    <ClInclude Include="..\Source\scriptfuncs.h" />
+    <ClInclude Include="..\Source\skillwin.h" />
+    <ClInclude Include="..\Source\spellbook.h" />
+    <ClInclude Include="..\Source\spellfuncs.h" />
+    <ClInclude Include="..\Source\spells.h" />
+    <ClInclude Include="..\Source\StartScreen.h" />
+    <ClInclude Include="..\Source\texturemanager.h" />
+    <ClInclude Include="..\Source\things.h" />
+    <ClInclude Include="..\Source\TranslucentWindow.h" />
+    <ClInclude Include="..\Source\walls.h" />
+    <ClInclude Include="..\Source\water.h" />
+    <ClInclude Include="..\Source\wave.h" />
+    <ClInclude Include="..\Source\wavread.h" />
+    <ClInclude Include="..\Source\World.h" />
+    <ClInclude Include="..\Source\Worldedit.h" />
+    <ClInclude Include="..\Source\zsactionwindow.h" />
+    <ClInclude Include="..\Source\ZSaskwin.h" />
+    <ClInclude Include="..\Source\zsbrushwindow.h" />
+    <ClInclude Include="..\Source\zsbutton.h" />
+    <ClInclude Include="..\Source\ZSCaveEdit.h" />
+    <ClInclude Include="..\Source\zsconfirm.h" />
+    <ClInclude Include="..\Source\zscontainer.h" />
+    <ClInclude Include="..\Source\ZSCutScene.h" />
+    <ClInclude Include="..\Source\zsdescribe.h" />
+    <ClInclude Include="..\Source\ZSEditWindow.h" />
+    <ClInclude Include="..\Source\ZSEngine.h" />
+    <ClInclude Include="..\Source\zsfire.h" />
+    <ClInclude Include="..\Source\ZSFloatSpin.h" />
+    <ClInclude Include="..\Source\ZSFontEngine.h" />
+    <ClInclude Include="..\Source\zsgetnumber.h" />
+    <ClInclude Include="..\Source\zsgettarget.h" />
+    <ClInclude Include="..\Source\ZsGetText.h" />
+    <ClInclude Include="..\Source\ZSGraphics.h" />
+    <ClInclude Include="..\Source\ZSHelpWin.h" />
+    <ClInclude Include="..\Source\ZSinput.h" />
+    <ClInclude Include="..\Source\ZSIntSpin.h" />
+    <ClInclude Include="..\Source\zsitemslot.h" />
+    <ClInclude Include="..\Source\ZSListBox.h" />
+    <ClInclude Include="..\Source\ZSMainDescribe.h" />
+    <ClInclude Include="..\Source\zsmenubar.h" />
+    <ClInclude Include="..\Source\zsmessage.h" />
+    <ClInclude Include="..\Source\ZSModel.h" />
+    <ClInclude Include="..\Source\ZSmodelEx.h" />
+    <ClInclude Include="..\Source\zsobjectwindow.h" />
+    <ClInclude Include="..\Source\ZSOldListBox.h" />
+    <ClInclude Include="..\Source\ZSOptions.h" />
+    <ClInclude Include="..\Source\ZSparticle.h" />
+    <ClInclude Include="..\Source\ZSportrait.h" />
+    <ClInclude Include="..\Source\ZSProgress.h" />
+    <ClInclude Include="..\Source\ZSREGIONEDIT.h" />
+    <ClInclude Include="..\Source\ZSRest.h" />
+    <ClInclude Include="..\Source\ZSSaveLoad.h" />
+    <ClInclude Include="..\Source\zssaychar.h" />
+    <ClInclude Include="..\Source\ZSScriptWindow.h" />
+    <ClInclude Include="..\Source\ZSShrinkWindow.h" />
+    <ClInclude Include="..\Source\ZSsound.h" />
+    <ClInclude Include="..\Source\ZSSpellWindow.h" />
+    <ClInclude Include="..\Source\ZSTalk.h" />
+    <ClInclude Include="..\Source\ZSText.h" />
+    <ClInclude Include="..\Source\ZStexture.h" />
+    <ClInclude Include="..\Source\zstoolwindow.h" />
+    <ClInclude Include="..\Source\ZSutilities.h" />
+    <ClInclude Include="..\Source\ZSVerticalScroll.h" />
+    <ClInclude Include="..\Source\zsweapontrace.h" />
+    <ClInclude Include="..\Source\ZSwindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Script1.rc">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">\MyProjects\Prelude;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Logged|Win32'">\MyProjects\Prelude;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">\MyProjects\Prelude;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='autotest|Win32'">\MyProjects\Prelude;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\dx7a\lib\d3dim.lib" />
+    <Library Include="..\..\..\dx7a\lib\d3dx.lib" />
+    <Library Include="..\..\..\dx7a\lib\ddraw.lib" />
+    <Library Include="..\..\..\dx7a\lib\dinput.lib" />
+    <Library Include="..\..\..\dx7a\lib\dplayx.lib" />
+    <Library Include="..\..\..\dx7a\lib\DSETUP.lib" />
+    <Library Include="..\..\..\dx7a\lib\dsound.lib" />
+    <Library Include="..\..\..\dx7a\lib\dxguid.lib" />
+    <Library Include="..\..\..\Program Files\Microsoft Visual Studio\Vc98\Lib\Winmm.lib" />
+    <Library Include="..\Source\bass.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

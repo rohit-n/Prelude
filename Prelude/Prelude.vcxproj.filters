@@ -1,0 +1,801 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5789c84c-ca89-45a1-ab96-54461a676c1c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{d8c7392f-ba2f-4927-82b5-983be738ac6c}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{08ff24cc-73c7-488b-b8d8-b09e7f358df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX">
+      <UniqueIdentifier>{c249c00d-4dfc-46e9-9b98-659a6e6e483d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windowing System">
+      <UniqueIdentifier>{73c7d760-7cd8-4afd-98d0-8f2af37b2e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windowing System\Base Controls">
+      <UniqueIdentifier>{9c52fb7d-ef8f-41d9-a7b3-66d23914c2ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windowing System\Dialogs">
+      <UniqueIdentifier>{0536b041-3851-4dae-af6b-ac510b4037a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{3467c5a3-f4b5-4cf1-bd0f-7decba4d18e4}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{d960e46c-3925-49d8-9923-ff8322f3e8a5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\actions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\area.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\attacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\cavewall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Chunks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\combatdemomain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CombatManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Corpse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\creatures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\EditRegion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\entrance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\equipobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\events.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Flags.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\forest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gameitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Generatworld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\items.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\LoadObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Locator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\maplocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\modifiers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MovePointer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Objects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Party.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\path.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Pickpocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\portals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\regions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\registration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\script.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\scriptfuncs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\spellbook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\spellfuncs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Spells.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\texturemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\things.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\updateworld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\walls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\water.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\wavread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\wave.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSEngine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSFontEngine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSGraphics.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSinput.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSModel.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSModelEx.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSsound.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZStextures.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSutilities.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\aura.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\blood.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\castaura.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\explosion.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\fireball.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\fountain.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\healaura.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\meshfx.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\missile.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\pattern.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsfire.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSparticle.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsweapontrace.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSbutton.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsconfirm.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSDescribe.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSEditWindow.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSFloatSpin.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsgetnumber.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSGetText.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsIntSpin.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsitemslot.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zslistbox.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsOldlistbox.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSProgress.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSShrinkWindow.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSText.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSVerticalScroll.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSwindow.cpp">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\actionmenuclass.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Barter.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CharacterWin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CreatePartyWin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\deathwin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\equipeditorwin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\equipwin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\inventorywin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\journal.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MainWindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\mapwin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\minimap.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\peopleedit.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\skillwin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\StartScreen.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\translucentwindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\worldedit.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsactionwindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSaskwin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsbrushwindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSCaveEdit.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zscontainer.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZScutscene.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsgettarget.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSHelpWin.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSMainDescribe.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsmenubar.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zsMessage.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSobjectwindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSOptions.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSportrait.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSREGIONEDIT.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSRest.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSSaveLoad.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\zssaychar.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSScriptWindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSSpellWindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZSTalk.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ZStoolwindow.cpp">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\actions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\animrange.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\area.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\attacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\cavewall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Chunks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CombatManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Corpse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\creatures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\EditRegion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\entrance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\equipobject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\events.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\file_input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Flags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\forest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gameitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\items.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Locator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\maplocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\modifiers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MovePointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Objects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\party.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\portals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\regions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\registration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Resfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\script.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\scriptfuncs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\spellbook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\spellfuncs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\spells.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\texturemanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\things.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\walls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\wavread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\defs.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\wave.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSFontEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSGraphics.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSinput.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSModel.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSmodelEx.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSsound.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZStexture.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSutilities.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\aura.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\blood.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CastAura.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\explosion.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\fireball.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\fountain.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\healaura.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\meshfx.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\missile.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\pattern.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsfire.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSparticle.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsweapontrace.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsbutton.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsconfirm.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsdescribe.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSEditWindow.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSFloatSpin.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsgetnumber.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZsGetText.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSIntSpin.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsitemslot.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSListBox.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSOldListBox.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSProgress.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSShrinkWindow.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSText.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSVerticalScroll.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSwindow.h">
+      <Filter>Windowing System\Base Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\actionmenuclass.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Barter.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CharacterWin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CreatePartyWin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\deathwin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\equipeditorwin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Equipwin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\inventorywin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\journal.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\mainwindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\mapwin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Minimap.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\peopleedit.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\pickpocket.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\skillwin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\StartScreen.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\TranslucentWindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Worldedit.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsactionwindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSaskwin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsbrushwindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSCaveEdit.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zscontainer.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSCutScene.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsgettarget.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSHelpWin.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSMainDescribe.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsmenubar.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsmessage.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zsobjectwindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSOptions.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSportrait.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSREGIONEDIT.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSRest.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSSaveLoad.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zssaychar.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSScriptWindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSSpellWindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ZSTalk.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\zstoolwindow.h">
+      <Filter>Windowing System\Dialogs</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Script1.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\Source\bass.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\d3dim.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\d3dx.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\ddraw.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\dinput.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\dplayx.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\DSETUP.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\dsound.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\dx7a\lib\dxguid.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+    <Library Include="..\..\..\Program Files\Microsoft Visual Studio\Vc98\Lib\Winmm.lib">
+      <Filter>Libraries</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
