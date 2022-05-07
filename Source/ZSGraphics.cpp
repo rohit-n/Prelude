@@ -7,6 +7,121 @@
 #define WINDOW_CLASS_NAME	"ZeroSumMainWindow"
 #define WINDOW_TITLE			"ZSMain"
 
+void D3DMatrixScaling(D3DMATRIX* mat, float sx, float sy, float sz)
+{
+	memset(mat, 0, sizeof(D3DMATRIX));
+	mat->_11 = sx;
+	mat->_22 = sy;
+	mat->_33 = sz;
+	mat->_44 = 1.0f;
+}
+
+static void D3DMatrixRotation_Axis(D3DMATRIX* mat, float angle, D3DVECTOR axis)
+{
+	float xy = axis.x * axis.y;
+	float xz = axis.x * axis.z;
+	float yz = axis.y * axis.z;
+
+	float rad = angle;
+	float one_minus_cos = 1.0f - cosf(rad);
+
+	mat->_11 = cosf(rad) + ((axis.x * axis.x) * one_minus_cos);
+	mat->_21 = (xy * one_minus_cos) - (axis.z * sinf(rad));
+	mat->_31 = (xz * one_minus_cos) + (axis.y * sinf(rad));
+	mat->_41 = 0.0f;
+
+	mat->_12 = (xy * one_minus_cos) + (axis.z * sinf(rad));
+	mat->_22 = cosf(rad) + ((axis.y * axis.y) * one_minus_cos);
+	mat->_32 = (yz * one_minus_cos) - (axis.x * sinf(rad));
+	mat->_42 = 0.0f;
+
+	mat->_13 = (xz * one_minus_cos) - (axis.y * sinf(rad));
+	mat->_23 = (yz * one_minus_cos) + (axis.x * sinf(rad));
+	mat->_33 = cosf(rad) + ((axis.z * axis.z) * one_minus_cos);
+	mat->_43 = 0.0f;
+
+	mat->_14 = 0.0f;
+	mat->_24 = 0.0f;
+	mat->_34 = 0.0f;
+	mat->_44 = 1.0f;
+}
+
+void D3DMatrixRotationX(D3DMATRIX* mat, float angle)
+{
+	D3DVECTOR vec = { 1.0f, 0.0f, 0.0f };
+	D3DMatrixRotation_Axis(mat, angle, vec);
+}
+
+void D3DMatrixRotationY(D3DMATRIX* mat, float angle)
+{
+	D3DVECTOR vec = { 0.0f, 1.0f, 0.0f };
+	D3DMatrixRotation_Axis(mat, angle, vec);
+}
+
+void D3DMatrixRotationZ(D3DMATRIX* mat, float angle)
+{
+	D3DVECTOR vec = { 0.0f, 0.0f, 1.0f };
+	D3DMatrixRotation_Axis(mat, angle, vec);
+}
+
+void D3DMatrixMultiply(D3DMATRIX* out, D3DMATRIX* m1, D3DMATRIX* m2)
+{
+	memset(out, 0, sizeof(D3DMATRIX));
+	out->_11 = (m1->_11 * m2->_11) + (m1->_12 * m2->_21) + (m1->_13 * m2->_31) + (m1->_14 * m2->_41);
+	out->_12 = (m1->_11 * m2->_12) + (m1->_12 * m2->_22) + (m1->_13 * m2->_32) + (m1->_14 * m2->_42);
+	out->_13 = (m1->_11 * m2->_13) + (m1->_12 * m2->_23) + (m1->_13 * m2->_33) + (m1->_14 * m2->_43);
+	out->_14 = (m1->_11 * m2->_14) + (m1->_12 * m2->_24) + (m1->_13 * m2->_34) + (m1->_14 * m2->_44);
+
+	out->_21 = (m1->_21 * m2->_11) + (m1->_22 * m2->_21) + (m1->_23 * m2->_31) + (m1->_24 * m2->_41);
+	out->_22 = (m1->_21 * m2->_12) + (m1->_22 * m2->_22) + (m1->_23 * m2->_32) + (m1->_24 * m2->_42);
+	out->_23 = (m1->_21 * m2->_13) + (m1->_22 * m2->_23) + (m1->_23 * m2->_33) + (m1->_24 * m2->_43);
+	out->_24 = (m1->_21 * m2->_14) + (m1->_22 * m2->_24) + (m1->_23 * m2->_34) + (m1->_24 * m2->_44);
+
+	out->_31 = (m1->_31 * m2->_11) + (m1->_32 * m2->_21) + (m1->_33 * m2->_31) + (m1->_34 * m2->_41);
+	out->_32 = (m1->_31 * m2->_12) + (m1->_32 * m2->_22) + (m1->_33 * m2->_32) + (m1->_34 * m2->_42);
+	out->_33 = (m1->_31 * m2->_13) + (m1->_32 * m2->_23) + (m1->_33 * m2->_33) + (m1->_34 * m2->_43);
+	out->_34 = (m1->_31 * m2->_14) + (m1->_32 * m2->_24) + (m1->_33 * m2->_34) + (m1->_34 * m2->_44);
+
+	out->_41 = (m1->_41 * m2->_11) + (m1->_42 * m2->_21) + (m1->_43 * m2->_31) + (m1->_44 * m2->_41);
+	out->_42 = (m1->_41 * m2->_12) + (m1->_42 * m2->_22) + (m1->_43 * m2->_32) + (m1->_44 * m2->_42);
+	out->_43 = (m1->_41 * m2->_13) + (m1->_42 * m2->_23) + (m1->_43 * m2->_33) + (m1->_44 * m2->_43);
+	out->_44 = (m1->_41 * m2->_14) + (m1->_42 * m2->_24) + (m1->_43 * m2->_34) + (m1->_44 * m2->_44);
+}
+
+void D3DMatrixIdentity(D3DMATRIX* mat)
+{
+	D3DMatrixScaling(mat, 1.0f, 1.0f, 1.0f);
+}
+
+void D3DMatrixTranslation(D3DMATRIX* mat, float x, float y, float z)
+{
+	D3DMatrixIdentity(mat);
+	mat->_41 = x;
+	mat->_42 = y;
+	mat->_43 = z;
+}
+
+void D3DVec3Transform(D3DVECTOR* out, D3DVECTOR* in, D3DMATRIX* mat)
+{
+	out->x = (mat->_11 * in->x) + (mat->_21 * in->y) +
+		(mat->_31 * in->z) + (mat->_41);
+	out->y = (mat->_12 * in->x) + (mat->_22 * in->y) +
+		(mat->_32 * in->z) + (mat->_42);
+	out->z = (mat->_13 * in->x) + (mat->_23 * in->y) +
+		(mat->_33 * in->z) + (mat->_43);
+}
+
+void D3DMatrixRotationYawPitchRoll(D3DMATRIX* mat, float yaw, float pitch, float roll)
+{
+	D3DMATRIX mx, my, mz, mtemp;
+
+	D3DMatrixRotationX(&mx, pitch);
+	D3DMatrixRotationY(&my, yaw);
+	D3DMatrixRotationZ(&mz, roll);
+
+	D3DMatrixMultiply(&mtemp, &mz, &mx);
+	D3DMatrixMultiply(mat, &mtemp, &my);
+}
 
 //help function to create zbuffer
 HRESULT WINAPI EnumZBufferCallback( DDPIXELFORMAT* pddpf,

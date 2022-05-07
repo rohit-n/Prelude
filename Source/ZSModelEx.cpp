@@ -1,6 +1,7 @@
 #include "zsmodelex.h"
 #include "defs.h"
 #include "zsengine.h"
+#include "zsgraphics.h"
 #include "zsutilities.h"
 
 #ifndef NDEBUG
@@ -239,15 +240,15 @@ D3DVECTOR ZSModelEx::GetPointVector(int Point, int Frame, float Angle)
 
 	D3DVECTOR Vector = D3DVECTOR(stridedVertexArray[Frame][Point*3],stridedVertexArray[Frame][Point*3+1],stridedVertexArray[Frame][Point*3+2]);
 
-	D3DXMATRIX matRotate;
+	D3DMATRIX matRotate;
 	
-	D3DXVECTOR4 PointVector;
+	D3DVECTOR PointVector;
 
-	D3DXMatrixRotationZ(&matRotate, Angle + PI);
+	D3DMatrixRotationZ(&matRotate, Angle + PI);
 	
-	D3DXVec3Transform(&PointVector, (D3DXVECTOR3 *)&Vector, &matRotate);
+	D3DVec3Transform(&PointVector, &Vector, &matRotate);
 
-	return (D3DVECTOR)PointVector;
+	return PointVector;
 
 }
 
@@ -282,18 +283,18 @@ HRESULT ZSModelEx::Draw(LPDIRECT3DDEVICE7 D3DDevice, float x, float y, float z, 
 	//set up rotation matrix
 	//set up transformation matrix
 	//concatentate
-	D3DXMATRIX mmove;
-	D3DXMATRIX mrotate; 
+	D3DMATRIX mmove;
+	D3DMATRIX mrotate;
 	
-	D3DXMatrixRotationZ(&mrotate,angle + PI);
+	D3DMatrixRotationZ(&mrotate,angle + PI);
 	
-	D3DXMatrixTranslation(&mmove,x,y,z);
+	D3DMatrixTranslation(&mmove,x,y,z);
 	
-	D3DXMATRIX matWorld;
+	D3DMATRIX matWorld;
 
-	D3DXMatrixIdentity(&matWorld);
+	D3DMatrixIdentity(&matWorld);
 
-	D3DXMatrixMultiply(&matWorld,&mrotate,&mmove);
+	D3DMatrixMultiply(&matWorld,&mrotate,&mmove);
 
 	D3DMATRIX finworld;
 
@@ -377,24 +378,24 @@ HRESULT ZSModelEx::DrawLit(LPDIRECT3DDEVICE7 D3DDevice, float x, float y, float 
 	//set up rotation matrix
 	//set up transformation matrix
 	//concatentate
-	D3DXMATRIX mmove;
-	D3DXMATRIX mrotate; 
-	D3DXMATRIX mscale;
-	D3DXMATRIX mtemp;
+	D3DMATRIX mmove;
+	D3DMATRIX mrotate;
+	D3DMATRIX mscale;
+	D3DMATRIX mtemp;
 
-	D3DXMatrixRotationZ(&mrotate,angle + PI);
+	D3DMatrixRotationZ(&mrotate,angle + PI);
 	
-	D3DXMatrixTranslation(&mmove,x,y,z);
+	D3DMatrixTranslation(&mmove,x,y,z);
 	
-	D3DXMatrixScaling(&mscale,xscale,yscale,zscale);
+	D3DMatrixScaling(&mscale,xscale,yscale,zscale);
 
-	D3DXMatrixMultiply(&mtemp,&mscale,&mrotate);
+	D3DMatrixMultiply(&mtemp,&mscale,&mrotate);
 	
-	D3DXMATRIX matWorld;
+	D3DMATRIX matWorld;
 
-	D3DXMatrixIdentity(&matWorld);
+	D3DMatrixIdentity(&matWorld);
 
-	D3DXMatrixMultiply(&matWorld,&mtemp,&mmove);
+	D3DMatrixMultiply(&matWorld,&mtemp,&mmove);
 
 	D3DMATRIX finworld;
 
@@ -473,24 +474,24 @@ HRESULT ZSModelEx::Draw(LPDIRECT3DDEVICE7 D3DDevice, float x, float y, float z, 
 	//set up rotation matrix
 	//set up transformation matrix
 	//concatentate
-	D3DXMATRIX mmove;
-	D3DXMATRIX mrotate; 
-	D3DXMATRIX mscale;
-	D3DXMATRIX mtemp;
+	D3DMATRIX mmove;
+	D3DMATRIX mrotate;
+	D3DMATRIX mscale;
+	D3DMATRIX mtemp;
 
-	D3DXMatrixRotationZ(&mrotate,angle + PI);
+	D3DMatrixRotationZ(&mrotate,angle + PI);
 	
-	D3DXMatrixTranslation(&mmove,x,y,z);
+	D3DMatrixTranslation(&mmove,x,y,z);
 	
-	D3DXMatrixScaling(&mscale,xscale,yscale,zscale);
+	D3DMatrixScaling(&mscale,xscale,yscale,zscale);
 
-	D3DXMatrixMultiply(&mtemp,&mscale,&mrotate);
+	D3DMatrixMultiply(&mtemp,&mscale,&mrotate);
 	
-	D3DXMATRIX matWorld;
+	D3DMATRIX matWorld;
 
-	D3DXMatrixIdentity(&matWorld);
+	D3DMatrixIdentity(&matWorld);
 
-	D3DXMatrixMultiply(&matWorld,&mtemp,&mmove);
+	D3DMatrixMultiply(&matWorld, &mtemp, &mmove);
 
 	D3DMATRIX finworld;
 
@@ -606,15 +607,15 @@ HRESULT ZSModelEx::Draw(LPDIRECT3DDEVICE7 D3DDevice, int frame)
 
 void ZSModelEx::Rotate(float yaw, float pitch, float roll)
 {
-	D3DXVECTOR3 Center;
+	D3DVECTOR Center;
 
-	D3DXVECTOR3 InVector;
+	D3DVECTOR InVector;
 
-	D3DXVECTOR4 OutVector;
+	D3DVECTOR OutVector;
 
-	D3DXMATRIX matRotate;
+	D3DMATRIX matRotate;
 
-	D3DXMatrixRotationYawPitchRoll(&matRotate, yaw, pitch, roll);
+	D3DMatrixRotationYawPitchRoll(&matRotate, yaw, pitch, roll);
 
 	int n;
 	int fn;
@@ -641,7 +642,7 @@ void ZSModelEx::Rotate(float yaw, float pitch, float roll)
 			InVector.y = stridedVertexArray[fn][n+1] - Center.y;
 			InVector.z = stridedVertexArray[fn][n+2] - Center.z;
 		
-			D3DXVec3Transform(&OutVector, &InVector, &matRotate);
+			D3DVec3Transform(&OutVector, &InVector, &matRotate);
 		
 			stridedVertexArray[fn][n]   = OutVector.x + Center.x;
 			stridedVertexArray[fn][n+1] = OutVector.y + Center.y;
@@ -653,7 +654,7 @@ void ZSModelEx::Rotate(float yaw, float pitch, float roll)
 				InVector.y = stridedNormals[n+1];
 				InVector.z = stridedNormals[n+2];
 			
-				D3DXVec3Transform(&OutVector, &InVector, &matRotate);
+				D3DVec3Transform(&OutVector, &InVector, &matRotate);
 			
 				stridedNormals[n]   = OutVector.x;
 				stridedNormals[n+1] = OutVector.y;
