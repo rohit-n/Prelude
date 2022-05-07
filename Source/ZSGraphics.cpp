@@ -16,28 +16,45 @@ void D3DMatrixScaling(D3DMATRIX* mat, float sx, float sy, float sz)
 	mat->_44 = 1.0f;
 }
 
-static void D3DMatrixRotation_Axis(D3DMATRIX* mat, float angle, D3DVECTOR axis)
+static void D3DVectorNormalize(D3DVECTOR* v)
 {
-	float xy = axis.x * axis.y;
-	float xz = axis.x * axis.z;
-	float yz = axis.y * axis.z;
+	float length = (v->x * v->x) + (v->y * v->y) + (v->z * v->z);
+	length = sqrtf(length);
 
-	float rad = angle;
-	float one_minus_cos = 1.0f - cosf(rad);
+	if (length == 0.0f)
+	{
+		length = 1.0f;
+	}
 
-	mat->_11 = cosf(rad) + ((axis.x * axis.x) * one_minus_cos);
-	mat->_21 = (xy * one_minus_cos) - (axis.z * sinf(rad));
-	mat->_31 = (xz * one_minus_cos) + (axis.y * sinf(rad));
+	v->x = v->x / length;
+	v->y = v->y / length;
+	v->z = v->z / length;
+}
+
+void D3DMatrixRotationAxis(D3DMATRIX* mat, D3DVECTOR* axis, float angle)
+{
+	float xy, xz, yz;
+	float one_minus_cos = 1.0f - cosf(angle);
+
+	D3DVectorNormalize(axis);
+
+	xy = axis->x * axis->y;
+	xz = axis->x * axis->z;
+	yz = axis->y * axis->z;
+
+	mat->_11 = cosf(angle) + ((axis->x * axis->x) * one_minus_cos);
+	mat->_21 = (xy * one_minus_cos) - (axis->z * sinf(angle));
+	mat->_31 = (xz * one_minus_cos) + (axis->y * sinf(angle));
 	mat->_41 = 0.0f;
 
-	mat->_12 = (xy * one_minus_cos) + (axis.z * sinf(rad));
-	mat->_22 = cosf(rad) + ((axis.y * axis.y) * one_minus_cos);
-	mat->_32 = (yz * one_minus_cos) - (axis.x * sinf(rad));
+	mat->_12 = (xy * one_minus_cos) + (axis->z * sinf(angle));
+	mat->_22 = cosf(angle) + ((axis->y * axis->y) * one_minus_cos);
+	mat->_32 = (yz * one_minus_cos) - (axis->x * sinf(angle));
 	mat->_42 = 0.0f;
 
-	mat->_13 = (xz * one_minus_cos) - (axis.y * sinf(rad));
-	mat->_23 = (yz * one_minus_cos) + (axis.x * sinf(rad));
-	mat->_33 = cosf(rad) + ((axis.z * axis.z) * one_minus_cos);
+	mat->_13 = (xz * one_minus_cos) - (axis->y * sinf(angle));
+	mat->_23 = (yz * one_minus_cos) + (axis->x * sinf(angle));
+	mat->_33 = cosf(angle) + ((axis->z * axis->z) * one_minus_cos);
 	mat->_43 = 0.0f;
 
 	mat->_14 = 0.0f;
@@ -49,19 +66,19 @@ static void D3DMatrixRotation_Axis(D3DMATRIX* mat, float angle, D3DVECTOR axis)
 void D3DMatrixRotationX(D3DMATRIX* mat, float angle)
 {
 	D3DVECTOR vec = { 1.0f, 0.0f, 0.0f };
-	D3DMatrixRotation_Axis(mat, angle, vec);
+	D3DMatrixRotationAxis(mat, &vec, angle);
 }
 
 void D3DMatrixRotationY(D3DMATRIX* mat, float angle)
 {
 	D3DVECTOR vec = { 0.0f, 1.0f, 0.0f };
-	D3DMatrixRotation_Axis(mat, angle, vec);
+	D3DMatrixRotationAxis(mat, &vec, angle);
 }
 
 void D3DMatrixRotationZ(D3DMATRIX* mat, float angle)
 {
 	D3DVECTOR vec = { 0.0f, 0.0f, 1.0f };
-	D3DMatrixRotation_Axis(mat, angle, vec);
+	D3DMatrixRotationAxis(mat, &vec, angle);
 }
 
 void D3DMatrixMultiply(D3DMATRIX* out, D3DMATRIX* m1, D3DMATRIX* m2)

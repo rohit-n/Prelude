@@ -7,13 +7,13 @@ D3DVECTOR BaseFactorB(0.0f, 0.05f, 0.0f);
 
 BOOL ParticleSystem::AdvanceFrame()
 {
-  D3DXMATRIX mxRotate;
-  D3DXVECTOR4	vxV;
+  D3DMATRIX mxRotate;
+  D3DVECTOR	vxV;
   D3DVECTOR vTemp;
   
   DrawLength = 0;
   
-  D3DXMatrixRotationYawPitchRoll(&mxRotate, vRotation.x, vRotation.y, vRotation.z);
+  D3DMatrixRotationYawPitchRoll(&mxRotate, vRotation.x, vRotation.y, vRotation.z);
 
 	//position the camera factors properly
 	int n;
@@ -27,7 +27,7 @@ BOOL ParticleSystem::AdvanceFrame()
 
 			vTemp = Position[n] - ParticleOrigin[n];
 
-			D3DXVec3Transform(&vxV,(D3DXVECTOR3* )&vTemp,&mxRotate);
+			D3DVec3Transform(&vxV, &vTemp,&mxRotate);
 			
 			Position[n] = ((D3DVECTOR)vxV) + ParticleOrigin[n];
 		
@@ -39,7 +39,7 @@ BOOL ParticleSystem::AdvanceFrame()
 			//remove gravity from velocity
 			Velocity[n] += vGravity;
 
-		   D3DXVec3Transform(&vxV,(D3DXVECTOR3* )&Velocity[n],&mxRotate);
+		   D3DVec3Transform(&vxV, &Velocity[n],&mxRotate);
 
 		   Velocity[n] = (D3DVECTOR)vxV;
 
@@ -95,9 +95,9 @@ BOOL ParticleSystem::AdvanceFrame()
 
 	if(Orbitting)
 	{
-		 D3DXMatrixRotationYawPitchRoll(&mxRotate, vOrbit.x, vOrbit.y, vOrbit.z);
+		 D3DMatrixRotationYawPitchRoll(&mxRotate, vOrbit.x, vOrbit.y, vOrbit.z);
 		 vTemp = vOrigin - vDestination;
-		 D3DXVec3Transform(&vxV,(D3DXVECTOR3* )&vTemp,&mxRotate);
+		 D3DVec3Transform(&vxV, &vTemp,&mxRotate);
 			
 		 vOrigin = ((D3DVECTOR)vxV) + vDestination;
 	}

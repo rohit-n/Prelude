@@ -61,6 +61,7 @@
 #define COLOR_KEY_BLACK			0
 
 void D3DMatrixScaling(D3DMATRIX* mat, float sx, float sy, float sz);
+void D3DMatrixRotationAxis(D3DMATRIX* mat, D3DVECTOR* axis, float angle);
 void D3DMatrixRotationX(D3DMATRIX* mat, float angle);
 void D3DMatrixRotationY(D3DMATRIX* mat, float angle);
 void D3DMatrixRotationZ(D3DMATRIX* mat, float angle);
