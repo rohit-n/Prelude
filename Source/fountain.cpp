@@ -32,13 +32,13 @@ void Fountain::SetNumStreams(int NewNum)
 	AngleOffset = PI_MUL_2 / (float)NumStreams;
 
 	D3DVECTOR vNorth(0.0f,Horizontal,Vertical);
-	D3DXVECTOR4 vAngle;
-	D3DXMATRIX matRotate;
-	D3DXMatrixRotationZ(&matRotate,AngleOffset);
+	D3DVECTOR vAngle;
+	D3DMATRIX matRotate;
+	D3DMatrixRotationZ(&matRotate,AngleOffset);
 	
 	for(int n = 0; n < NumStreams; n++)
 	{
-		D3DXVec3Transform(&vAngle, (D3DXVECTOR3 *)&vNorth, &matRotate);
+		D3DVec3Transform(&vAngle, &vNorth, &matRotate);
 		vNorth.x = vAngle.x;
 		vNorth.y = vAngle.y;
 		vNorth.z = vAngle.z;

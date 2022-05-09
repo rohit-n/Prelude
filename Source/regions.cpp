@@ -1383,11 +1383,11 @@ void Region::ScaleRoof(float Amount)
 
 void Region::RotateFloor(float Angle)
 {
-	D3DXVECTOR4 vOut;
-	D3DXMATRIX mRotate;
-	D3DXVECTOR3	vIn;
+	D3DVECTOR vOut;
+	D3DMATRIX mRotate;
+	D3DVECTOR	vIn;
 	
-	D3DXMatrixRotationZ(&mRotate,Angle);
+	D3DMatrixRotationZ(&mRotate,Angle);
 
 	float Scale;
 	Scale = Verts[0].tu / Verts[0].x;
@@ -1398,7 +1398,7 @@ void Region::RotateFloor(float Angle)
 		vIn.x = Verts[n].x - vCenter.x;
 		vIn.y = Verts[n].y - vCenter.y;
 		vIn.z = Verts[n].z - vCenter.z;
-		D3DXVec3Transform(&vOut,(D3DXVECTOR3 *)&vIn,&mRotate);
+		D3DVec3Transform(&vOut, &vIn, &mRotate);
 		Verts[n].tu = vOut.x * Scale;
 		Verts[n].tv = vOut.y * Scale;
 	}

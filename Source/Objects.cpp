@@ -134,17 +134,17 @@ BOOL Object::RayIntersectAlwaysCheck(D3DVECTOR *vRayStart, D3DVECTOR *vRayEnd)
 
 	//convert the ray to object coordinates
 	//first translate then rotate
-	D3DXMATRIX matRotate, matScale, matTransform;
-	D3DXMatrixRotationZ( &matRotate, -(GetMyAngle() + PI));
-	D3DXMatrixScaling(&matScale, InverseScale, InverseScale, InverseScale);
-	D3DXMatrixMultiply(&matTransform, &matRotate, &matScale);
-	D3DXVECTOR4 vTransStart, vTransEnd;
+	D3DMATRIX matRotate, matScale, matTransform;
+	D3DMatrixRotationZ( &matRotate, -(GetMyAngle() + PI));
+	D3DMatrixScaling(&matScale, InverseScale, InverseScale, InverseScale);
+	D3DMatrixMultiply(&matTransform, &matRotate, &matScale);
+	D3DVECTOR vTransStart, vTransEnd;
 	D3DVECTOR vMoveStart, vMoveEnd;
 	vMoveStart = *vRayStart - *GetPosition();
 	vMoveEnd = *vRayEnd - *GetPosition();
-	D3DXVec3Transform(&vTransStart,(D3DXVECTOR3 *)&vMoveStart, &matTransform);
-	D3DXVec3Transform(&vTransEnd,(D3DXVECTOR3 *)&vMoveEnd, &matTransform);
-	return pMesh->Intersect(GetFrame(), (D3DVECTOR *)&vTransStart,(D3DVECTOR *)&vTransEnd);
+	D3DVec3Transform(&vTransStart, &vMoveStart, &matTransform);
+	D3DVec3Transform(&vTransEnd, &vMoveEnd, &matTransform);
+	return pMesh->Intersect(GetFrame(), &vTransStart, &vTransEnd);
 }
 
 
@@ -170,17 +170,17 @@ BOOL Object::RayIntersect(D3DVECTOR *vRayStart, D3DVECTOR *vRayEnd)
 	{
 		//convert the ray to object coordinates
 		//first translate then rotate
-		D3DXMATRIX matRotate, matScale, matTransform;
-		D3DXMatrixRotationZ( &matRotate, -(GetMyAngle() + PI));
-		D3DXMatrixScaling(&matScale, InverseScale, InverseScale, InverseScale);
-		D3DXMatrixMultiply(&matTransform, &matRotate, &matScale);
-		D3DXVECTOR4 vTransStart, vTransEnd;
+		D3DMATRIX matRotate, matScale, matTransform;
+		D3DMatrixRotationZ( &matRotate, -(GetMyAngle() + PI));
+		D3DMatrixScaling(&matScale, InverseScale, InverseScale, InverseScale);
+		D3DMatrixMultiply(&matTransform, &matRotate, &matScale);
+		D3DVECTOR vTransStart, vTransEnd;
 		D3DVECTOR vMoveStart, vMoveEnd;
 		vMoveStart = *vRayStart - *GetPosition();
 		vMoveEnd = *vRayEnd - *GetPosition();
-		D3DXVec3Transform(&vTransStart,(D3DXVECTOR3 *)&vMoveStart, &matTransform);
-		D3DXVec3Transform(&vTransEnd,(D3DXVECTOR3 *)&vMoveEnd, &matTransform);
-		return pMesh->Intersect(GetFrame(), (D3DVECTOR *)&vTransStart,(D3DVECTOR *)&vTransEnd);
+		D3DVec3Transform(&vTransStart, &vMoveStart, &matTransform);
+		D3DVec3Transform(&vTransEnd, &vMoveEnd, &matTransform);
+		return pMesh->Intersect(GetFrame(), &vTransStart, &vTransEnd);
 	}
 	else
 	{
@@ -201,16 +201,16 @@ D3DVECTOR Object::GetCenter()
 		return *GetPosition();
 	}
 
-	D3DXVECTOR3 vA, vB;
-	D3DXVECTOR4 vxA, vxB;
-	D3DXMATRIX	matRotate;
+	D3DVECTOR vA, vB;
+	D3DVECTOR vxA, vxB;
+	D3DMATRIX	matRotate;
 
-	D3DXMatrixRotationZ(&matRotate,GetMyAngle());
+	D3DMatrixRotationZ(&matRotate,GetMyAngle());
 
 	pMesh->GetBounds(&vA.x, &vB.x, &vA.z, &vB.z, &vA.y, &vB.y, Frame);
 
-	D3DXVec3Transform(&vxA,&vA,&matRotate);
-	D3DXVec3Transform(&vxB,&vB,&matRotate);
+	D3DVec3Transform(&vxA,&vA,&matRotate);
+	D3DVec3Transform(&vxB,&vB,&matRotate);
 
 	D3DVECTOR vCenter;
 	vCenter = *GetPosition();

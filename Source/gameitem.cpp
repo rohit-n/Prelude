@@ -489,17 +489,17 @@ BOOL GameItem::RayIntersect(D3DVECTOR *vRayStart, D3DVECTOR *vRayEnd)
 
 		//convert the ray to object coordinates
 		//first translate then rotate
-		D3DXMATRIX matRotate, matScale, matTransform;
-		D3DXMatrixRotationZ( &matRotate, -(GetMyAngle() + PI));
-		D3DXMatrixScaling(&matScale, InverseWidth, InverseDepth, InverseHeight);
-		D3DXMatrixMultiply(&matTransform, &matRotate, &matScale);
-		D3DXVECTOR4 vTransStart, vTransEnd;
+		D3DMATRIX matRotate, matScale, matTransform;
+		D3DMatrixRotationZ( &matRotate, -(GetMyAngle() + PI));
+		D3DMatrixScaling(&matScale, InverseWidth, InverseDepth, InverseHeight);
+		D3DMatrixMultiply(&matTransform, &matRotate, &matScale);
+		D3DVECTOR vTransStart, vTransEnd;
 		D3DVECTOR vMoveStart, vMoveEnd;
 		vMoveStart = *vRayStart - *GetPosition();
 		vMoveEnd = *vRayEnd - *GetPosition();
-		D3DXVec3Transform(&vTransStart,(D3DXVECTOR3 *)&vMoveStart, &matTransform);
-		D3DXVec3Transform(&vTransEnd,(D3DXVECTOR3 *)&vMoveEnd, &matTransform);
-		return pIntersectMesh->Intersect(GetFrame(), (D3DVECTOR *)&vTransStart,(D3DVECTOR *)&vTransEnd);
+		D3DVec3Transform(&vTransStart, &vMoveStart, &matTransform);
+		D3DVec3Transform(&vTransEnd, &vMoveEnd, &matTransform);
+		return pIntersectMesh->Intersect(GetFrame(), &vTransStart, &vTransEnd);
 	}
 
 	if(RayX == ItemX && RayY == ItemY)

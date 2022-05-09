@@ -84,8 +84,8 @@ void WeaponTracer::AddLine()
 	vxStart = pMesh->GetPoint(Start, 0);
 	vxEnd = pMesh->GetPoint(End, 0);
 
-	D3DXVECTOR3 vStart;
-	D3DXVECTOR3 vEnd;
+	D3DVECTOR vStart;
+	D3DVECTOR vEnd;
 	vStart.x = vxStart.x;
 	vStart.y = vxStart.y;
 	vStart.z = vxStart.z;
@@ -119,12 +119,12 @@ void WeaponTracer::AddLine()
 	//targetFrame gives the current frame of the target's (ie: swordsman's) animation to grab
 	//  the equipmentlocator information from.
 
-	D3DXMATRIX mmove;
-	D3DXMATRIX mrotate; 
-	D3DXMATRIX mtargetrotate;
-	D3DXMATRIX mmyrotate;
-	D3DXMATRIX mtemp;
-	D3DXMATRIX matWorld;
+	D3DMATRIX mmove;
+	D3DMATRIX mrotate;
+	D3DMATRIX mtargetrotate;
+	D3DMATRIX mmyrotate;
+	D3DMATRIX mtemp;
+	D3DMATRIX matWorld;
 	D3DVECTOR targetNormal;
 	D3DVECTOR targetOrigin;
 	D3DVECTOR objectNormal;
@@ -137,12 +137,12 @@ void WeaponTracer::AddLine()
 
 	//set the world matrix to identity. Might not be needed.
 	//not needed as we override it later
-	D3DXMatrixIdentity(&matWorld);
+	D3DMatrixIdentity(&matWorld);
 	
 	//Set the target's rotation Matrix;
-	D3DXMatrixRotationZ(&mtargetrotate, targetAngle + PI);
+	D3DMatrixRotationZ(&mtargetrotate, targetAngle + PI);
 	
-	D3DXMatrixRotationY(&mmyrotate, -PI_DIV_2);
+	D3DMatrixRotationY(&mmyrotate, -PI_DIV_2);
 	
 	//Set Translate matrix;
 	//lots of de'refing going on here could be optimized with heavier use of pointers
@@ -164,7 +164,7 @@ void WeaponTracer::AddLine()
 	TargetRayFrom.y = target->stridedVertexArray[targetFrame][RayArrayOffset + 1];
 	TargetRayFrom.z = target->stridedVertexArray[targetFrame][RayArrayOffset + 2];
 	
-	D3DXMatrixTranslation( &mmove, -(LinkPoint.x), -(LinkPoint.y), -(LinkPoint.z) );
+	D3DMatrixTranslation( &mmove, -(LinkPoint.x), -(LinkPoint.y), -(LinkPoint.z) );
 
 	//set the rotations
 	//grab the info from the other model and figure out where to rotate.
@@ -187,16 +187,16 @@ void WeaponTracer::AddLine()
 
 		//pMesh rotates the main axis of the object (ie: weapon) to the proper direction 
 		// on the model.
-		D3DXMatrixRotationAxis(&mrotate,&(D3DXVECTOR3)temp, theta);  //check degrees or radians in other calcs.
+		D3DMatrixRotationAxis(&mrotate, &temp, theta);  //check degrees or radians in other calcs.
 
 	//now handle rotation about the proper axis of the weapon
-		D3DXMatrixMultiply(&mrotate,&mmyrotate,&mrotate);
+		D3DMatrixMultiply(&mrotate,&mmyrotate,&mrotate);
 	
-		D3DXMatrixRotationAxis(&mtemp, &(D3DXVECTOR3)objectNormal, rotation);
+		D3DMatrixRotationAxis(&mtemp, &objectNormal, rotation);
 
-		D3DXMatrixMultiply(&mrotate,&mrotate,&mtemp);
+		D3DMatrixMultiply(&mrotate,&mrotate,&mtemp);
 
-		D3DXMatrixMultiply(&matWorld, &mmove, &mrotate);
+		D3DMatrixMultiply(&matWorld, &mmove, &mrotate);
 		
 	//translate the object to match the target's object origin for the current frame.
 		//grab the equipmentLocation origin from the model.
@@ -205,25 +205,25 @@ void WeaponTracer::AddLine()
 	
 			//set translate matrix
 
-			D3DXMatrixTranslation(&mmove, TargetLink.x, TargetLink.y, TargetLink.z);
+			D3DMatrixTranslation(&mmove, TargetLink.x, TargetLink.y, TargetLink.z);
 
-			D3DXMatrixMultiply(&mmove, &mmove, &mtargetrotate);
+			D3DMatrixMultiply(&mmove, &mmove, &mtargetrotate);
 			
-			D3DXMatrixTranslation(&mtemp, WorldPosition->x, WorldPosition->y, WorldPosition->z);
+			D3DMatrixTranslation(&mtemp, WorldPosition->x, WorldPosition->y, WorldPosition->z);
 
-			D3DXMatrixMultiply(&mmove, &mmove, &mtemp);
+			D3DMatrixMultiply(&mmove, &mmove, &mtemp);
 
 	
 	//do the final multiplication
-	D3DXMatrixMultiply(&matWorld, &matWorld, &mmove);
+	D3DMatrixMultiply(&matWorld, &matWorld, &mmove);
 
 	//the rest is basically the same as draw();
 		// we now have the place we have to move to, the proper rotation to align to the 
 		//  target model's normal, the offset amounts, and the scale factor.
 
-	D3DXVECTOR4 vOut;
+	D3DVECTOR vOut;
 
-	D3DXVec3Transform(&vOut,(D3DXVECTOR3 *)&vStart, &matWorld);
+	D3DVec3Transform(&vOut, &vStart, &matWorld);
 
 	Verts[NumVerts].x = vOut.x;
 	Verts[NumVerts].y = vOut.y;
@@ -236,7 +236,7 @@ void WeaponTracer::AddLine()
 
 	NumVerts++;
 
-	D3DXVec3Transform(&vOut,(D3DXVECTOR3 *)&vEnd, &matWorld);
+	D3DVec3Transform(&vOut, &vEnd, &matWorld);
 
 	Verts[NumVerts].x = vOut.x;
 	Verts[NumVerts].y = vOut.y;
