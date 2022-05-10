@@ -245,25 +245,25 @@ void ZSMainWindow::GetTarget()
 
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_VIEW, &matView);
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
-	D3DXVECTOR4 vNear;
-	D3DXVECTOR4 vCameraLocation;
+	D3DVECTOR vNear;
+	D3DVECTOR vCameraLocation;
 	
-	D3DXMATRIX matInverseView;
-	D3DXMATRIX matInverseProj;
-	D3DXMATRIX matInverseWorld;
-	D3DXMATRIX matTemp;
-	D3DXMATRIX matFinal;
+	D3DMATRIX matInverseView;
+	D3DMATRIX matInverseProj;
+	D3DMATRIX matInverseWorld;
+	D3DMATRIX matTemp;
+	D3DMATRIX matFinal;
 	float blarg;
 
-	D3DXMatrixInverse(&matInverseView,&blarg,(D3DXMATRIX *)&matView);
-	D3DXMatrixInverse(&matInverseProj,&blarg,(D3DXMATRIX *)&matProj);
+	D3DMatrixInverse(&matInverseView, &blarg, &matView);
+	D3DMatrixInverse(&matInverseProj, &blarg, &matProj);
 	
-	D3DXMatrixMultiply(&matFinal,&matInverseProj,&matInverseView);
+	D3DMatrixMultiply(&matFinal, &matInverseProj, &matInverseView);
 	
-	D3DXVec3Transform(&vNear,(D3DXVECTOR3 *)&vMouseNear,&matFinal);
+	D3DVec3Transform(&vNear, &vMouseNear, &matFinal);
 	
 	//now we have the start and end points of our line
-	vRayStart = (D3DVECTOR)vNear;
+	vRayStart = vNear;
 	
 	this->pTarget = Valley->GetTarget(&vRayStart,&vRayEnd);
 	if(PreludeWorld->HighlightInfo()) SetTargetString();
@@ -710,8 +710,8 @@ int ZSMainWindow::MoveMouse(long *x, long *y, long *z)
 	}
 
 	//clamp the mouse position to between our boundaries
-//	D3DXMATRIX mRotation;
-//	D3DXVECTOR4 vResult;
+//	D3DMATRIX mRotation;
+//	D3DVECTOR vResult;
 
 	iMouseX = *x;
 	iMouseY = *y;
@@ -936,8 +936,8 @@ int ZSMainWindow::HandleKeys(BYTE *CurrentKeys, BYTE *LastKeys)
 		pDrawTime->Hide();
 	}
 
-	D3DXMATRIX mRotation;
-	D3DXVECTOR4 vResult;
+	D3DMATRIX mRotation;
+	D3DVECTOR vResult;
 
 //camera controls
 	if(!PRESSED(DIK_NUMPAD8) && !PRESSED(DIK_NUMPAD4) && !PRESSED(DIK_NUMPAD2) && !PRESSED(DIK_NUMPAD6))
@@ -949,52 +949,52 @@ int ZSMainWindow::HandleKeys(BYTE *CurrentKeys, BYTE *LastKeys)
 	{
 		if(PRESSED(DIK_NUMPAD8) || PRESSED(DIK_UP))
 		{
-			D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+			D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 			vOffset.y = -ScrollFactor;
-			D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
-			ScrollVector = (D3DVECTOR)vResult;
+			D3DVec3Transform(&vResult, &vOffset,&mRotation);
+			ScrollVector = vResult;
 		}
 		else
 		if(PRESSED(DIK_NUMPAD2) || PRESSED(DIK_DOWN))
 		{
 			//move to bottom of screen
-			D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+			D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 			vOffset.y = ScrollFactor;
-			D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
-			ScrollVector = (D3DVECTOR)vResult;
+			D3DVec3Transform(&vResult, &vOffset,&mRotation);
+			ScrollVector = vResult;
 		}
 		else
 		{
 			//move to bottom of screen
-			D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+			D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 			vOffset.y = 0;
-			D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
-			ScrollVector = (D3DVECTOR)vResult;
+			D3DVec3Transform(&vResult, &vOffset, &mRotation);
+			ScrollVector = vResult;
 		}
 		
 		if(PRESSED(DIK_NUMPAD6) || PRESSED(DIK_RIGHT))
 		{
 			//move to right of screen
-			D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+			D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 			vOffset.x = ScrollFactor;
-			D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
-			ScrollVector = (D3DVECTOR)vResult;
+			D3DVec3Transform(&vResult, &vOffset, &mRotation);
+			ScrollVector = vResult;
 		}
 		else
 		if(PRESSED(DIK_NUMPAD4) || PRESSED(DIK_LEFT))
 		{
 			//move to left of screen
-			D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+			D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 			vOffset.x = -ScrollFactor;
-			D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
-			ScrollVector = (D3DVECTOR)vResult;
+			D3DVec3Transform(&vResult, &vOffset, &mRotation);
+			ScrollVector = vResult;
 		}
 		else
 		{
-			D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+			D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 			vOffset.x = 0;
-			D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
-			ScrollVector = (D3DVECTOR)vResult;
+			D3DVec3Transform(&vResult, &vOffset, &mRotation);
+			ScrollVector = vResult;
 		}
 	
 		Scrolling = TRUE;
@@ -1850,29 +1850,29 @@ int ZSMainWindow::GoModal()
 		FrameNum ++;
 		Frame++;
 		Frame = Frame % 30;
-		D3DXMATRIX mRotation;
-		D3DXVECTOR4 vResult;
+		D3DMATRIX mRotation;
+		D3DVECTOR vResult;
 
 		if(iMouseX <= (Bounds.left + 2))
 		{
 			if(!LBDown)
 			{
-				D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+				D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 				if(Scrolling)
 				{
 					vOffset.x = -ScrollFactor;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					ScrollVector = (D3DVECTOR)vResult;
+					ScrollVector = vResult;
 				}
 				else
 				{
 					vOffset.x = -ScrollFactor;
 					vOffset.y = 0.0f;
 					vOffset.z = 0.0f;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					PreludeWorld->UpdateCameraOffset((D3DVECTOR)vResult);
+					PreludeWorld->UpdateCameraOffset(vResult);
 				}
 			}
 			else
@@ -1888,22 +1888,22 @@ int ZSMainWindow::GoModal()
 		{
 			if(!LBDown)
 			{
-				D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+				D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 				if(Scrolling)
 				{
 					vOffset.x = ScrollFactor;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					ScrollVector = (D3DVECTOR)vResult;
+					ScrollVector = vResult;
 				}
 				else
 				{
 					vOffset.x = ScrollFactor;
 					vOffset.y = 0.0f;
 					vOffset.z = 0.0f;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					PreludeWorld->UpdateCameraOffset((D3DVECTOR)vResult);
+					PreludeWorld->UpdateCameraOffset(vResult);
 				}
 			}
 			else
@@ -1919,22 +1919,22 @@ int ZSMainWindow::GoModal()
 		{
 			if(!LBDown)
 			{
-				D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+				D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 				if(Scrolling)
 				{
 					vOffset.y = -ScrollFactor;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					ScrollVector = (D3DVECTOR)vResult;
+					ScrollVector = vResult;
 				}
 				else
 				{
 					vOffset.y = -ScrollFactor;
 					vOffset.x = 0.0f;
 					vOffset.z = 0.0f;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					PreludeWorld->UpdateCameraOffset((D3DVECTOR)vResult);
+					PreludeWorld->UpdateCameraOffset(vResult);
 				}
 			}
 			else
@@ -1950,22 +1950,22 @@ int ZSMainWindow::GoModal()
 		{
 			if(!LBDown)
 			{
-				D3DXMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
+				D3DMatrixRotationZ(&mRotation, PreludeWorld->GetCameraAngle());
 				if(Scrolling)
 				{
 					vOffset.y = ScrollFactor;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					ScrollVector = (D3DVECTOR)vResult;
+					ScrollVector = vResult;
 				}
 				else
 				{
 					vOffset.y = ScrollFactor;
 					vOffset.x = 0.0f;
 					vOffset.z = 0.0f;
-					D3DXVec3Transform(&vResult,(D3DXVECTOR3 *)&vOffset,&mRotation);
+					D3DVec3Transform(&vResult, &vOffset, &mRotation);
 					//move to tope of screen
-					PreludeWorld->UpdateCameraOffset((D3DVECTOR)vResult);
+					PreludeWorld->UpdateCameraOffset(vResult);
 				}
 			}
 			else

@@ -112,8 +112,7 @@ World::World()
 	vWorldUp.y = 0;
 	vWorldUp.z = 1;
 
-	D3DXMatrixLookAt((D3DXMATRIX*)&matCamera, (D3DXVECTOR3*)&vCamera,
-		(D3DXVECTOR3*)&vLookAt, (D3DXVECTOR3*)&vWorldUp);
+	D3DMatrixLookAt(&matCamera, &vCamera, &vLookAt, &vWorldUp);
 
 	Engine->Graphics()->GetD3D()->SetTransform( D3DTRANSFORMSTATE_VIEW, &matCamera );
 
@@ -190,8 +189,7 @@ World::World(const char *filename)
 	vWorldUp.y = 0;
 	vWorldUp.z = 1;
 
-	D3DXMatrixLookAt((D3DXMATRIX*)&matCamera, (D3DXVECTOR3*)&vCamera,
-		(D3DXVECTOR3*)&vLookAt, (D3DXVECTOR3*)&vWorldUp);
+	D3DMatrixLookAt(&matCamera, &vCamera, &vLookAt, &vWorldUp);
 
 	Engine->Graphics()->GetD3D()->SetTransform( D3DTRANSFORMSTATE_VIEW, &matCamera );
 
@@ -473,46 +471,46 @@ void World::ConvertMouse(int MouseX, int MouseY, float *WorldX, float *WorldY, f
 
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_VIEW, &matView);
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
-	D3DXVECTOR4 vNear;
-	D3DXVECTOR4 vCameraLocation;
-	
-	D3DXMATRIX matInverseView;
-	D3DXMATRIX matInverseProj;
-	D3DXMATRIX matInverseWorld;
-	D3DXMATRIX matTemp;
-	D3DXMATRIX matFinal;
+	D3DVECTOR vNear;
+	D3DVECTOR vCameraLocation;
+
+	D3DMATRIX matInverseView;
+	D3DMATRIX matInverseProj;
+	D3DMATRIX matInverseWorld;
+	D3DMATRIX matTemp;
+	D3DMATRIX matFinal;
 	float blarg;
 
-	D3DXMatrixInverse(&matInverseView,&blarg,(D3DXMATRIX *)&matView);
-	D3DXMatrixInverse(&matInverseProj,&blarg,(D3DXMATRIX *)&matProj);
+	D3DMatrixInverse(&matInverseView, &blarg, &matView);
+	D3DMatrixInverse(&matInverseProj, &blarg, &matProj);
 	
-	D3DXMatrixMultiply(&matFinal,&matInverseProj,&matInverseView);
+	D3DMatrixMultiply(&matFinal, &matInverseProj, &matInverseView);
 	
-	D3DXVec3Transform(&vNear,(D3DXVECTOR3 *)&vMouseNear,&matFinal);
+	D3DVec3Transform(&vNear, &vMouseNear, &matFinal);
 	
-	D3DXVec3Transform(&vCameraLocation,(D3DXVECTOR3 *)&vCameraSpace,&matFinal);
+	D3DVec3Transform(&vCameraLocation, &vCameraSpace, &matFinal);
 
 	//now we have the start and end points of our line
 
-	D3DXVECTOR3 vLine;
-	D3DXVECTOR3 vCamNorm;
+	D3DVECTOR vLine;
+	D3DVECTOR vCamNorm;
 
-	vCameraOffset = vLookAt - (D3DVECTOR)vCameraLocation;
+	vCameraOffset = vLookAt - vCameraLocation;
 
-	D3DXVec3Normalize(&vCamNorm,(D3DXVECTOR3 *)&vCameraOffset);
+	D3DVec3Normalize(&vCamNorm, &vCameraOffset);
 
 	//get the length of our camera offset
 
 	float Length;
 
-	Length = D3DXVec3Length((D3DXVECTOR3 *)&vCameraOffset);
+	Length = D3DVec3Length(&vCameraOffset);
 
 	Length = Length * (vNear.z / vCameraLocation.z);
 
-	D3DXVec3Scale(&vLine, &vCamNorm, Length);
+	D3DVec3Scale(&vLine, &vCamNorm, Length);
 	
 	D3DVECTOR vStart, vEnd;
-	vStart = (D3DVECTOR)vNear;
+	vStart = vNear;
 
 	vLine.x += vNear.x;
 	vLine.y += vNear.y;
@@ -755,46 +753,46 @@ void World::ConvertMouseTile(int MouseX, int MouseY, float *WorldX, float *World
 
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_VIEW, &matView);
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
-	D3DXVECTOR4 vNear;
-	D3DXVECTOR4 vCameraLocation;
-	
-	D3DXMATRIX matInverseView;
-	D3DXMATRIX matInverseProj;
-	D3DXMATRIX matInverseWorld;
-	D3DXMATRIX matTemp;
-	D3DXMATRIX matFinal;
+	D3DVECTOR vNear;
+	D3DVECTOR vCameraLocation;
+
+	D3DMATRIX matInverseView;
+	D3DMATRIX matInverseProj;
+	D3DMATRIX matInverseWorld;
+	D3DMATRIX matTemp;
+	D3DMATRIX matFinal;
 	float blarg;
 
-	D3DXMatrixInverse(&matInverseView,&blarg,(D3DXMATRIX *)&matView);
-	D3DXMatrixInverse(&matInverseProj,&blarg,(D3DXMATRIX *)&matProj);
+	D3DMatrixInverse(&matInverseView,&blarg, &matView);
+	D3DMatrixInverse(&matInverseProj,&blarg, &matProj);
 	
-	D3DXMatrixMultiply(&matFinal,&matInverseProj,&matInverseView);
+	D3DMatrixMultiply(&matFinal, &matInverseProj, &matInverseView);
 	
-	D3DXVec3Transform(&vNear,(D3DXVECTOR3 *)&vMouseNear,&matFinal);
+	D3DVec3Transform(&vNear, &vMouseNear, &matFinal);
 	
-	D3DXVec3Transform(&vCameraLocation,(D3DXVECTOR3 *)&vCameraSpace,&matFinal);
+	D3DVec3Transform(&vCameraLocation, &vCameraSpace, &matFinal);
 
 	//now we have the start and end points of our line
 
-	D3DXVECTOR3 vLine;
-	D3DXVECTOR3 vCamNorm;
+	D3DVECTOR vLine;
+	D3DVECTOR vCamNorm;
 
-	vCameraOffset = vLookAt - (D3DVECTOR)vCameraLocation;
+	vCameraOffset = vLookAt - vCameraLocation;
 
-	D3DXVec3Normalize(&vCamNorm,(D3DXVECTOR3 *)&vCameraOffset);
+	D3DVec3Normalize(&vCamNorm, &vCameraOffset);
 
 	//get the length of our camera offset
 
 	float Length;
 
-	Length = D3DXVec3Length((D3DXVECTOR3 *)&vCameraOffset);
+	Length = D3DVec3Length(&vCameraOffset);
 
 	Length = Length * (vNear.z / vCameraLocation.z);
 
-	D3DXVec3Scale(&vLine, &vCamNorm, Length);
+	D3DVec3Scale(&vLine, &vCamNorm, Length);
 	
 	D3DVECTOR vStart, vEnd;
-	vStart = (D3DVECTOR)vNear;
+	vStart = vNear;
 
 	vLine.x += vNear.x;
 	vLine.y += vNear.y;
@@ -957,8 +955,8 @@ float World::GetScaling()
 	D3DMATRIX matProj;
 	D3DMATRIX matWorld;
 
-	D3DXVECTOR3 vBase;
-	D3DXVECTOR3 vCenter;
+	D3DVECTOR vBase;
+	D3DVECTOR vCenter;
 
 	vBase.x = 0.0f;
 	vBase.y = 1.0f;
@@ -971,15 +969,15 @@ float World::GetScaling()
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_VIEW, &matView);
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
 
-	D3DXVECTOR4 vA;
-	D3DXVECTOR4 vB;
+	D3DVECTOR vA;
+	D3DVECTOR vB;
 	
-	D3DXMATRIX matFinal;
+	D3DMATRIX matFinal;
 	
-	D3DXMatrixMultiply(&matFinal,(D3DXMATRIX *)&matProj, (D3DXMATRIX *)&matView);
+	D3DMatrixMultiply(&matFinal, &matProj, &matView);
 	
-	D3DXVec3Transform(&vA,(D3DXVECTOR3 *)&vBase, &matFinal);
-	D3DXVec3Transform(&vB,(D3DXVECTOR3 *)&vCenter, &matFinal);
+	D3DVec3Transform(&vA, &vBase, &matFinal);
+	D3DVec3Transform(&vB, &vCenter, &matFinal);
 
 	D3DVECTOR vFinal;
 	vFinal.x = vA.x - vB.x;
@@ -1012,48 +1010,48 @@ void World::ConvertToWorld(int MouseX, int MouseY, D3DVECTOR *vScreen)
 
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_VIEW, &matView);
 	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
-	D3DXVECTOR4 vNear;
-	D3DXVECTOR4 vCameraLocation;
-	
-	D3DXMATRIX matInverseView;
-	D3DXMATRIX matInverseProj;
-	D3DXMATRIX matInverseWorld;
-	D3DXMATRIX matTemp;
-	D3DXMATRIX matFinal;
+	D3DVECTOR vNear;
+	D3DVECTOR vCameraLocation;
+
+	D3DMATRIX matInverseView;
+	D3DMATRIX matInverseProj;
+	D3DMATRIX matInverseWorld;
+	D3DMATRIX matTemp;
+	D3DMATRIX matFinal;
 	float blarg;
 
-	D3DXMatrixInverse(&matInverseView,&blarg,(D3DXMATRIX *)&matView);
-	D3DXMatrixInverse(&matInverseProj,&blarg,(D3DXMATRIX *)&matProj);
+	D3DMatrixInverse(&matInverseView, &blarg, &matView);
+	D3DMatrixInverse(&matInverseProj, &blarg, &matProj);
 	
-	D3DXMatrixMultiply(&matFinal,&matInverseProj,&matInverseView);
+	D3DMatrixMultiply(&matFinal,&matInverseProj,&matInverseView);
 	
-	D3DXVec3Transform(&vNear,(D3DXVECTOR3 *)&vMouseNear,&matFinal);
+	D3DVec3Transform(&vNear, &vMouseNear,&matFinal);
 	
-	D3DXVec3Transform(&vCameraLocation,(D3DXVECTOR3 *)&vCameraSpace,&matFinal);
+	D3DVec3Transform(&vCameraLocation, &vCameraSpace, &matFinal);
 
 	//now we have the start and end points of our line
 
-	D3DXVECTOR3 vLine;
-	D3DXVECTOR3 vCamNorm;
+	D3DVECTOR vLine;
+	D3DVECTOR vCamNorm;
 
-	vCameraOffset =vLookAt - (D3DVECTOR)vCameraLocation;
+	vCameraOffset =vLookAt - vCameraLocation;
 
 
-	D3DXVec3Normalize(&vCamNorm,(D3DXVECTOR3 *)&vCameraOffset);
+	D3DVec3Normalize(&vCamNorm, &vCameraOffset);
 
 	//get the length of our camera offset
 
 	float Length;
 
-	Length = D3DXVec3Length((D3DXVECTOR3 *)&vCameraOffset);
+	Length = D3DVec3Length(&vCameraOffset);
 
 	Length = Length * (vNear.z / vCameraLocation.z);
 
-	D3DXVec3Scale(&vLine, &vCamNorm, Length);
+	D3DVec3Scale(&vLine, &vCamNorm, Length);
 	
-	D3DXVec3Normalize(&vCamNorm, &vLine);
+	D3DVec3Normalize(&vCamNorm, &vLine);
 
-	D3DXVec3Scale(&vLine, &vCamNorm, 3.0f);
+	D3DVec3Scale(&vLine, &vCamNorm, 3.0f);
 	
 	vLine.x += vNear.x;
 	vLine.y += vNear.y;
@@ -1088,43 +1086,43 @@ void World::ConvertToWorld(D3DVECTOR *vScreen)
 	//Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
 	matProj = *Engine->Graphics()->GetIdentity();
 	
-	D3DXVECTOR4 vNear;
-	D3DXVECTOR4 vCameraLocation;
+	D3DVECTOR vNear;
+	D3DVECTOR vCameraLocation;
 	
-	D3DXMATRIX matInverseView;
-	D3DXMATRIX matInverseProj;
-	D3DXMATRIX matInverseWorld;
-	D3DXMATRIX matTemp;
-	D3DXMATRIX matFinal;
+	D3DMATRIX matInverseView;
+	D3DMATRIX matInverseProj;
+	D3DMATRIX matInverseWorld;
+	D3DMATRIX matTemp;
+	D3DMATRIX matFinal;
 	float blarg;
 
-	D3DXMatrixInverse(&matInverseView,&blarg,(D3DXMATRIX *)&matView);
-	D3DXMatrixInverse(&matInverseProj,&blarg,(D3DXMATRIX *)&matProj);
+	D3DMatrixInverse(&matInverseView, &blarg, &matView);
+	D3DMatrixInverse(&matInverseProj, &blarg, &matProj);
 	
-	D3DXMatrixMultiply(&matFinal,&matInverseProj,&matInverseView);
+	D3DMatrixMultiply(&matFinal, &matInverseProj, &matInverseView);
 	
-	D3DXVec3Transform(&vNear,(D3DXVECTOR3 *)&vMouseNear,&matFinal);
-	D3DXVec3Transform(&vCameraLocation,(D3DXVECTOR3 *)&vCameraSpace,&matFinal);
+	D3DVec3Transform(&vNear, &vMouseNear, &matFinal);
+	D3DVec3Transform(&vCameraLocation, &vCameraSpace, &matFinal);
 
 	//now we have the start and end points of our line
 
-	D3DXVECTOR3 vNorm,vLine;
-	D3DXVECTOR3 vCamNorm;
+	D3DVECTOR vNorm,vLine;
+	D3DVECTOR vCamNorm;
 
-	vCameraOffset = vLookAt  - (D3DVECTOR)vCameraLocation;
+	vCameraOffset = vLookAt  - vCameraLocation;
 	
 
-	D3DXVec3Normalize(&vCamNorm,(D3DXVECTOR3 *)&vCameraOffset);
+	D3DVec3Normalize(&vCamNorm, &vCameraOffset);
 
 	//get the length of our camera offset
 
 	float Length;
 
-	Length = D3DXVec3Length((D3DXVECTOR3 *)&vCameraOffset);
+	Length = D3DVec3Length(&vCameraOffset);
 
 	Length = Length * (vNear.z / vCameraLocation.z);
 
-	D3DXVec3Scale(&vLine, &vCamNorm, Length);
+	D3DVec3Scale(&vLine, &vCamNorm, Length);
 	
 	vLine.x += vNear.x;
 	vLine.y += vNear.y;
@@ -1301,8 +1299,7 @@ int World::LookAt(Thing *pThing)
 	vCamera.y = vLookAt.y + vCameraOffset.y;
 	vCamera.z = vLookAt.z + vCameraOffset.z;
 
-	D3DXMatrixLookAt((D3DXMATRIX*)&matCamera, (D3DXVECTOR3*)&vCamera,
-		(D3DXVECTOR3*)&vLookAt, (D3DXVECTOR3*)&vWorldUp);
+	D3DMatrixLookAt(&matCamera, &vCamera, &vLookAt, &vWorldUp);
 
 	Engine->Graphics()->GetD3D()->SetTransform( D3DTRANSFORMSTATE_VIEW, &matCamera );
 	
@@ -1678,25 +1675,24 @@ void World::SetCameraAngle(float NewAngle)
 int World::RotateCamera(float Angle)
 {
 	CameraAngle += Angle;
-	D3DXMATRIX matRotate;
+	D3DMATRIX matRotate;
 
-	D3DXMatrixRotationZ(&matRotate,Angle);
+	D3DMatrixRotationZ(&matRotate, Angle);
 	
-	D3DXVECTOR4 vNew;
-	D3DXVECTOR3 vOldCam;
+	D3DVECTOR vNew;
+	D3DVECTOR vOldCam;
 	
 	vOldCam.x = vCamera.x - vLookAt.x;
 	vOldCam.y = vCamera.y - vLookAt.y;
 	vOldCam.z = vCamera.z - vLookAt.z;
 
-	D3DXVec3Transform(&vNew,(D3DXVECTOR3 *)&vOldCam,&matRotate);
+	D3DVec3Transform(&vNew, &vOldCam, &matRotate);
 
     vCamera.x = vNew.x + vLookAt.x;
 	vCamera.y = vNew.y + vLookAt.y;
 	vCamera.z = vNew.z + vLookAt.z;
 	
-	D3DXMatrixLookAt((D3DXMATRIX*)&matCamera, (D3DXVECTOR3*)&vCamera,
-			(D3DXVECTOR3*)&vLookAt, (D3DXVECTOR3*)&vWorldUp);
+	D3DMatrixLookAt(&matCamera, &vCamera, &vLookAt, &vWorldUp);
 
 	Engine->Graphics()->GetD3D()->SetTransform( D3DTRANSFORMSTATE_VIEW, &matCamera );
 
@@ -1943,14 +1939,14 @@ void World::SaveGame(const char *filename, char *GameID)
 	float fViewDim;
 	fViewDim = Engine->Graphics()->GetViewDim();
 
-	D3DXMATRIX matView;
-	D3DXMATRIX matProj;
+	D3DMATRIX matView;
+	D3DMATRIX matProj;
 
-	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_VIEW, (D3DMATRIX *)&matView);
-	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, (D3DMATRIX *)&matProj);
+	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_VIEW, &matView);
+	Engine->Graphics()->GetD3D()->GetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
 
-	fwrite (&matView, sizeof(D3DXMATRIX),1,fp);
-	fwrite (&matProj, sizeof(D3DXMATRIX),1,fp);
+	fwrite (&matView, sizeof(D3DMATRIX),1,fp);
+	fwrite (&matProj, sizeof(D3DMATRIX),1,fp);
 
 	fwrite(&fViewDim,sizeof(float),1,fp);
 	
@@ -2133,17 +2129,17 @@ void World::LoadGame(const char *filename)
 	//save our the view matrixes and zoom
 	float fViewDim;
 
-	D3DXMATRIX matView;
-	D3DXMATRIX matProj;
+	D3DMATRIX matView;
+	D3DMATRIX matProj;
 
-	fread (&matView, sizeof(D3DXMATRIX),1,fp);
-	fread (&matProj, sizeof(D3DXMATRIX),1,fp);
+	fread (&matView, sizeof(D3DMATRIX),1,fp);
+	fread (&matProj, sizeof(D3DMATRIX),1,fp);
 
 	fread(&fViewDim,sizeof(float),1,fp);
 	
 	Engine->Graphics()->SetViewDim(fViewDim);
-	Engine->Graphics()->GetD3D()->SetTransform(D3DTRANSFORMSTATE_VIEW, (D3DMATRIX *)&matView);
-	Engine->Graphics()->GetD3D()->SetTransform(D3DTRANSFORMSTATE_PROJECTION, (D3DMATRIX *)&matProj);
+	Engine->Graphics()->GetD3D()->SetTransform(D3DTRANSFORMSTATE_VIEW, &matView);
+	Engine->Graphics()->GetD3D()->SetTransform(D3DTRANSFORMSTATE_PROJECTION, &matProj);
 
 	DEBUG_INFO("Loading Creatures\n");
 	LoadBinCreatures(fp);
@@ -2523,8 +2519,7 @@ void World::UpdateCameraOffset(D3DVECTOR UpdateRay)
 		vCamera.y = vLookAt.y + vCameraOffset.y;
 		vCamera.z = vLookAt.z + vCameraOffset.z;
 
-		D3DXMatrixLookAt((D3DXMATRIX*)&matCamera, (D3DXVECTOR3*)&vCamera,
-			(D3DXVECTOR3*)&vLookAt, (D3DXVECTOR3*)&vWorldUp);
+		D3DMatrixLookAt(&matCamera, &vCamera, &vLookAt, &vWorldUp);
 
 		Engine->Graphics()->GetD3D()->SetTransform( D3DTRANSFORMSTATE_VIEW, &matCamera );
 		
@@ -2536,9 +2531,9 @@ void World::ArcCamera(float ArcAmount)
 {
 	//get the current camera ray
 	D3DVECTOR vCameraRay;
-	D3DXVECTOR3 vAxis;
-	D3DXVECTOR4 vNewCamera;
-	D3DXMATRIX matRotate;
+	D3DVECTOR vAxis;
+	D3DVECTOR vNewCamera;
+	D3DMATRIX matRotate;
 
 	vCameraRay = vCamera - vLookAt;
 		
@@ -2547,17 +2542,16 @@ void World::ArcCamera(float ArcAmount)
 	vAxis.z = 0.0f;
 	//get the current valley angle
 	
-	D3DXMatrixRotationAxis(&matRotate,&vAxis,ArcAmount);
+	D3DMatrixRotationAxis(&matRotate, &vAxis, ArcAmount);
 
-	D3DXVec3Transform(&vNewCamera,(D3DXVECTOR3 *)&vCameraRay,&matRotate);
+	D3DVec3Transform(&vNewCamera, &vCameraRay, &matRotate);
 	if(vNewCamera.z > 9.0f && vNewCamera.z < 27.0f)
 	{
 		vCamera.x = vLookAt.x + vNewCamera.x;
 		vCamera.y = vLookAt.y + vNewCamera.y;
 		vCamera.z = vLookAt.z + vNewCamera.z;
 
-		D3DXMatrixLookAt((D3DXMATRIX*)&matCamera, (D3DXVECTOR3*)&vCamera,
-			(D3DXVECTOR3*)&vLookAt, (D3DXVECTOR3*)&vWorldUp);
+		D3DMatrixLookAt(&matCamera, &vCamera, &vLookAt, &vWorldUp);
 
 		Engine->Graphics()->GetD3D()->SetTransform( D3DTRANSFORMSTATE_VIEW, &matCamera );
 			

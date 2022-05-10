@@ -7,6 +7,44 @@
 #define WINDOW_CLASS_NAME	"ZeroSumMainWindow"
 #define WINDOW_TITLE			"ZSMain"
 
+static void D3DVectorCross(D3DVECTOR* out, D3DVECTOR* A, D3DVECTOR* B)
+{
+	out->x = (A->y * B->z) - (A->z * B->y);
+	out->y = (A->z * B->x) - (A->x * B->z);
+	out->z = (A->x * B->y) - (A->y * B->x);
+}
+
+static float D3DVectorDot(D3DVECTOR* A, D3DVECTOR* B)
+{
+	return (A->x * B->x) + (A->y * B->y) + (A->z * B->z);
+}
+
+float D3DVec3Length(D3DVECTOR* v)
+{
+	return sqrtf(D3DVectorDot(v, v));
+}
+
+void D3DVec3Normalize(D3DVECTOR* out, D3DVECTOR* in)
+{
+	float length = D3DVec3Length(in);
+
+	if (length == 0.0f)
+	{
+		length = 1.0f;
+	}
+
+	out->x = in->x / length;
+	out->y = in->y / length;
+	out->z = in->z / length;
+}
+
+void D3DVec3Scale(D3DVECTOR* out, D3DVECTOR* in, float s)
+{
+	out->x = in->x * s;
+	out->y = in->y * s;
+	out->z = in->z * s;
+}
+
 void D3DMatrixScaling(D3DMATRIX* mat, float sx, float sy, float sz)
 {
 	memset(mat, 0, sizeof(D3DMATRIX));
@@ -16,19 +54,11 @@ void D3DMatrixScaling(D3DMATRIX* mat, float sx, float sy, float sz)
 	mat->_44 = 1.0f;
 }
 
-static void D3DVectorNormalize(D3DVECTOR* v)
+static void D3DVectorSubtract(D3DVECTOR* out, D3DVECTOR* A, D3DVECTOR* B)
 {
-	float length = (v->x * v->x) + (v->y * v->y) + (v->z * v->z);
-	length = sqrtf(length);
-
-	if (length == 0.0f)
-	{
-		length = 1.0f;
-	}
-
-	v->x = v->x / length;
-	v->y = v->y / length;
-	v->z = v->z / length;
+	out->x = A->x - B->x;
+	out->y = A->y - B->y;
+	out->z = A->z - B->z;
 }
 
 void D3DMatrixRotationAxis(D3DMATRIX* mat, D3DVECTOR* axis, float angle)
@@ -36,7 +66,7 @@ void D3DMatrixRotationAxis(D3DMATRIX* mat, D3DVECTOR* axis, float angle)
 	float xy, xz, yz;
 	float one_minus_cos = 1.0f - cosf(angle);
 
-	D3DVectorNormalize(axis);
+	D3DVec3Normalize(axis, axis);
 
 	xy = axis->x * axis->y;
 	xz = axis->x * axis->z;
@@ -138,6 +168,196 @@ void D3DMatrixRotationYawPitchRoll(D3DMATRIX* mat, float yaw, float pitch, float
 
 	D3DMatrixMultiply(&mtemp, &mz, &mx);
 	D3DMatrixMultiply(mat, &mtemp, &my);
+}
+
+void D3DMatrixInverse(D3DMATRIX* out_mat, float* out_det, D3DMATRIX* in)
+{
+	float inv[16], det;
+	int i = 0;
+	float m[16];
+	m[i++] = in->_11;
+	m[i++] = in->_12;
+	m[i++] = in->_13;
+	m[i++] = in->_14;
+
+	m[i++] = in->_21;
+	m[i++] = in->_22;
+	m[i++] = in->_23;
+	m[i++] = in->_24;
+
+	m[i++] = in->_31;
+	m[i++] = in->_32;
+	m[i++] = in->_33;
+	m[i++] = in->_34;
+
+	m[i++] = in->_41;
+	m[i++] = in->_42;
+	m[i++] = in->_43;
+	m[i++] = in->_44;
+
+	inv[0] = m[5] * m[10] * m[15] -
+		m[5] * m[11] * m[14] -
+		m[9] * m[6] * m[15] +
+		m[9] * m[7] * m[14] +
+		m[13] * m[6] * m[11] -
+		m[13] * m[7] * m[10];
+
+	inv[4] = -m[4] * m[10] * m[15] +
+		m[4] * m[11] * m[14] +
+		m[8] * m[6] * m[15] -
+		m[8] * m[7] * m[14] -
+		m[12] * m[6] * m[11] +
+		m[12] * m[7] * m[10];
+
+	inv[8] = m[4] * m[9] * m[15] -
+		m[4] * m[11] * m[13] -
+		m[8] * m[5] * m[15] +
+		m[8] * m[7] * m[13] +
+		m[12] * m[5] * m[11] -
+		m[12] * m[7] * m[9];
+
+	inv[12] = -m[4] * m[9] * m[14] +
+		m[4] * m[10] * m[13] +
+		m[8] * m[5] * m[14] -
+		m[8] * m[6] * m[13] -
+		m[12] * m[5] * m[10] +
+		m[12] * m[6] * m[9];
+
+	inv[1] = -m[1] * m[10] * m[15] +
+		m[1] * m[11] * m[14] +
+		m[9] * m[2] * m[15] -
+		m[9] * m[3] * m[14] -
+		m[13] * m[2] * m[11] +
+		m[13] * m[3] * m[10];
+
+	inv[5] = m[0] * m[10] * m[15] -
+		m[0] * m[11] * m[14] -
+		m[8] * m[2] * m[15] +
+		m[8] * m[3] * m[14] +
+		m[12] * m[2] * m[11] -
+		m[12] * m[3] * m[10];
+
+	inv[9] = -m[0] * m[9] * m[15] +
+		m[0] * m[11] * m[13] +
+		m[8] * m[1] * m[15] -
+		m[8] * m[3] * m[13] -
+		m[12] * m[1] * m[11] +
+		m[12] * m[3] * m[9];
+
+	inv[13] = m[0] * m[9] * m[14] -
+		m[0] * m[10] * m[13] -
+		m[8] * m[1] * m[14] +
+		m[8] * m[2] * m[13] +
+		m[12] * m[1] * m[10] -
+		m[12] * m[2] * m[9];
+
+	inv[2] = m[1] * m[6] * m[15] -
+		m[1] * m[7] * m[14] -
+		m[5] * m[2] * m[15] +
+		m[5] * m[3] * m[14] +
+		m[13] * m[2] * m[7] -
+		m[13] * m[3] * m[6];
+
+	inv[6] = -m[0] * m[6] * m[15] +
+		m[0] * m[7] * m[14] +
+		m[4] * m[2] * m[15] -
+		m[4] * m[3] * m[14] -
+		m[12] * m[2] * m[7] +
+		m[12] * m[3] * m[6];
+
+	inv[10] = m[0] * m[5] * m[15] -
+		m[0] * m[7] * m[13] -
+		m[4] * m[1] * m[15] +
+		m[4] * m[3] * m[13] +
+		m[12] * m[1] * m[7] -
+		m[12] * m[3] * m[5];
+
+	inv[14] = -m[0] * m[5] * m[14] +
+		m[0] * m[6] * m[13] +
+		m[4] * m[1] * m[14] -
+		m[4] * m[2] * m[13] -
+		m[12] * m[1] * m[6] +
+		m[12] * m[2] * m[5];
+
+	inv[3] = -m[1] * m[6] * m[11] +
+		m[1] * m[7] * m[10] +
+		m[5] * m[2] * m[11] -
+		m[5] * m[3] * m[10] -
+		m[9] * m[2] * m[7] +
+		m[9] * m[3] * m[6];
+
+	inv[7] = m[0] * m[6] * m[11] -
+		m[0] * m[7] * m[10] -
+		m[4] * m[2] * m[11] +
+		m[4] * m[3] * m[10] +
+		m[8] * m[2] * m[7] -
+		m[8] * m[3] * m[6];
+
+	inv[11] = -m[0] * m[5] * m[11] +
+		m[0] * m[7] * m[9] +
+		m[4] * m[1] * m[11] -
+		m[4] * m[3] * m[9] -
+		m[8] * m[1] * m[7] +
+		m[8] * m[3] * m[5];
+
+	inv[15] = m[0] * m[5] * m[10] -
+		m[0] * m[6] * m[9] -
+		m[4] * m[1] * m[10] +
+		m[4] * m[2] * m[9] +
+		m[8] * m[1] * m[6] -
+		m[8] * m[2] * m[5];
+
+	det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
+#if 0
+	if (fabs(det) < 0.0001f)
+	{
+		D3DMatrixIdentity(out_mat);
+		*out_det = det;
+		return;
+	}
+#endif
+	det = 1.0f / det;
+
+	i = 0;
+	out_mat->_11 = inv[i++] * det;
+	out_mat->_12 = inv[i++] * det;
+	out_mat->_13 = inv[i++] * det;
+	out_mat->_14 = inv[i++] * det;
+
+	out_mat->_21 = inv[i++] * det;
+	out_mat->_22 = inv[i++] * det;
+	out_mat->_23 = inv[i++] * det;
+	out_mat->_24 = inv[i++] * det;
+
+	out_mat->_31 = inv[i++] * det;
+	out_mat->_32 = inv[i++] * det;
+	out_mat->_33 = inv[i++] * det;
+	out_mat->_34 = inv[i++] * det;
+
+	out_mat->_41 = inv[i++] * det;
+	out_mat->_42 = inv[i++] * det;
+	out_mat->_43 = inv[i++] * det;
+	out_mat->_44 = inv[i++] * det;
+
+	*out_det = det;
+}
+
+void D3DMatrixLookAt(D3DMATRIX* out, D3DVECTOR* eye, D3DVECTOR* lookat, D3DVECTOR* up)
+{
+	D3DVECTOR xaxis, yaxis, zaxis;
+
+	D3DVectorSubtract(&zaxis, eye, lookat);
+	D3DVec3Normalize(&zaxis, &zaxis);
+
+	D3DVectorCross(&xaxis, up, &zaxis);
+	D3DVec3Normalize(&xaxis, &xaxis);
+
+	D3DVectorCross(&yaxis, &zaxis, &xaxis);
+
+	out->_11 = -xaxis.x; out->_12 = yaxis.x; out->_13 = zaxis.x; out->_14 = 0.0f;
+	out->_21 = -xaxis.y; out->_22 = yaxis.y; out->_23 = zaxis.y; out->_24 = 0.0f;
+	out->_31 = -xaxis.z; out->_32 = yaxis.z; out->_33 = zaxis.z; out->_34 = 0.0f;
+	out->_41 = D3DVectorDot(&xaxis, eye); out->_42 = 0.0f - D3DVectorDot(&yaxis, eye); out->_43 = 0.0f - D3DVectorDot(&zaxis, eye); out->_44 = 1.0f;
 }
 
 //help function to create zbuffer

@@ -60,6 +60,9 @@
 #define COLOR_KEY_FROM_FILE	-1
 #define COLOR_KEY_BLACK			0
 
+float D3DVec3Length(D3DVECTOR* v);
+void D3DVec3Normalize(D3DVECTOR* out, D3DVECTOR* in);
+void D3DVec3Scale(D3DVECTOR* out, D3DVECTOR* in, float s);
 void D3DMatrixScaling(D3DMATRIX* mat, float sx, float sy, float sz);
 void D3DMatrixRotationAxis(D3DMATRIX* mat, D3DVECTOR* axis, float angle);
 void D3DMatrixRotationX(D3DMATRIX* mat, float angle);
@@ -70,6 +73,8 @@ void D3DMatrixTranslation(D3DMATRIX* mat, float x, float y, float z);
 void D3DMatrixMultiply(D3DMATRIX* out, D3DMATRIX* m1, D3DMATRIX* m2);
 void D3DVec3Transform(D3DVECTOR* out, D3DVECTOR* in, D3DMATRIX* mat);
 void D3DMatrixRotationYawPitchRoll(D3DMATRIX* mat, float yaw, float pitch, float roll);
+void D3DMatrixLookAt(D3DMATRIX* out, D3DVECTOR* eye, D3DVECTOR* lookat, D3DVECTOR* up);
+void D3DMatrixInverse(D3DMATRIX* out_mat, float* out_det, D3DMATRIX* in);
 
 //some basic colors
 typedef enum
