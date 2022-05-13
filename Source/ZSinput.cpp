@@ -202,6 +202,7 @@ int ZSInputSystem::ShutDown()
 	return FALSE;
 }
 
+#ifdef USE_SDL
 static int sdl_keycode_to_directinput(SDL_Keycode kc)
 {
 	switch (kc)
@@ -274,7 +275,6 @@ static void handle_key_state(BYTE* keys, SDL_Keycode kc, int down)
 	}
 }
 
-#ifdef USE_SDL
 void ZSInputSystem::Update(ZSWindow* pWin)
 {
 	SDL_Event event;
