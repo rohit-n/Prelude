@@ -77,7 +77,11 @@ ZSFont *PapyrusParchment;
 
 void OnExit(void);
 
+#ifdef USE_SDL
+int main(int argc, char** argv)
+#else
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, int ncmdshow)
+#endif
 {
 	INIT_DEBUG();
 
@@ -105,9 +109,11 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	D3DXInitialize();
 	
 	Engine = new ZSEngine;
-
+#ifdef USE_SDL
+	Engine->Init();
+#else
 	Engine->Init(hinstance);
-
+#endif
 	PapyrusParchment = new ZSFont(Engine->Graphics()->GetFontEngine(), "papyrus.ddf", TEXTCOLOR(250, 250, 250));
 
 	Engine->Graphics()->SetFont(PapyrusParchment);

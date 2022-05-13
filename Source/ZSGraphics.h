@@ -33,6 +33,9 @@
 
 #include "zstexture.h"
 #include "zsfontengine.h"
+#ifdef USE_SDL
+#include <SDL.h>
+#endif
 #include <stdio.h>
 
 #define DDRAW_INIT_STRUCT(ddstruct) { memset(&ddstruct,0,sizeof(ddstruct)); ddstruct.dwSize=sizeof(ddstruct); }
@@ -142,6 +145,9 @@ private:
 	//necessary window stuff
 	HINSTANCE Application;
 	HWND MainWindow;
+#ifdef USE_SDL
+	SDL_Window* window;
+#endif
 	
 	// DirectDraw Interface
 	LPDIRECTDRAW7 DirectDraw;
@@ -205,7 +211,11 @@ private:
 public:
 
 	//startup 
+#ifdef USE_SDL
+	HWND Init();
+#else
 	HWND Init(HINSTANCE hInstance);
+#endif
 	ZSGraphicsSystem();
 	void SetUpCircles();
 	

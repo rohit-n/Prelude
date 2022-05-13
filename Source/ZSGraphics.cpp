@@ -3,6 +3,9 @@
 #include <assert.h>
 #include "zsengine.h"
 #include "resource.h"
+#ifdef USE_SDL
+#include <SDL_syswm.h>
+#endif
 
 #define WINDOW_CLASS_NAME	"ZeroSumMainWindow"
 #define WINDOW_TITLE			"ZSMain"
@@ -874,14 +877,22 @@ BOOL ZSGraphicsSystem::ClearTexture()
 	}
 }
 
+#ifdef USE_SDL
+HWND ZSGraphicsSystem::Init()
+#else
 HWND ZSGraphicsSystem::Init(HINSTANCE hInstance)
+#endif
 {
 	DEBUG_INFO("Beginning Graphics system Init\n");
 
 	FILE *fp;
 	int n;
-	DDSURFACEDESC2	ddsd;
 
+	DDSURFACEDESC2	ddsd;
+#ifdef USE_SDL
+	SDL_SysWMinfo info;
+	int window_flags = 0;
+#else
 	WNDCLASS winclass;	// this will hold the class we create
 	// first fill in the window class stucture
 	
@@ -901,7 +912,7 @@ HWND ZSGraphicsSystem::Init(HINSTANCE hInstance)
 	// register the window class
 	if (!RegisterClass(&winclass))
 		return(0);
-
+#endif
 	DEBUG_INFO("Getting screen information from GUI.INI, ");
 
 	fp = SafeFileOpen("gui.ini","rt");
@@ -926,6 +937,7 @@ HWND ZSGraphicsSystem::Init(HINSTANCE hInstance)
 	
 	DEBUG_INFO("Creating Windows interface Window\n");
 
+#ifndef USE_SDL
 	MainWindow = CreateWindowEx(0,
 			WINDOW_CLASS_NAME,
 			WINDOW_TITLE,
@@ -938,7 +950,26 @@ HWND ZSGraphicsSystem::Init(HINSTANCE hInstance)
 			NULL,
 			hInstance,
 			NULL );
+#else
+	if (SDL_Init(SDL_INIT_EVERYTHING))
+	{
+		return NULL;
+	}
 
+	window = SDL_CreateWindow("Prelude to Darkness", SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED, ScreenWidth, ScreenHeight, window_flags);
+
+	if (!window)
+	{
+		return NULL;
+	}
+
+	SDL_VERSION(&info.version);
+	SDL_GetWindowWMInfo(window, &info);
+
+	MainWindow = info.info.win.window;
+
+#endif
 	DEBUG_INFO("Windows interface window created\n\n");
 
 	ShowWindow(MainWindow, SW_SHOW);
@@ -1419,7 +1450,6 @@ int ZSGraphicsSystem::ShutDown()
 		MouseSurface->Release();
 		MouseSurface = NULL;
 	}
-
 	if (ZBuf) 
 	{
 		ZBuf->Release();
@@ -1449,10 +1479,13 @@ int ZSGraphicsSystem::ShutDown()
 		delete pZSFont;
 		pZSFont = NULL;
 	}
-
+#ifdef USE_SDL
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+#else
 	if(MainWindow)
 	DestroyWindow(MainWindow);
-
+#endif
 	return TRUE;
 }
 
@@ -1503,13 +1536,13 @@ void ZSGraphicsSystem::SetCursor(int CursorNum)
 void ZSGraphicsSystem::DrawCursor(RECT *rDrawAt)
 {
 	RECT rDrawTo = *rDrawAt;
-
-	rDrawTo.left	-= CursorOffsetX[Cursor];
-	rDrawTo.top		-= CursorOffsetY[Cursor];
-	rDrawTo.right	-= CursorOffsetX[Cursor];
-	rDrawTo.bottom	-= CursorOffsetY[Cursor];
-
-	BBuffer->Blt(&rDrawTo, MouseSurface, &MouseCursor[(Cursor*MAX_CURSOR_FRAMES)+CursorFrame], DDBLT_KEYSRC, NULL);
+	RECT* cursor_rect = &MouseCursor[(Cursor * MAX_CURSOR_FRAMES) + CursorFrame];
+	float x, y, w, h;
+	rDrawTo.left -= CursorOffsetX[Cursor];
+	rDrawTo.top -= CursorOffsetY[Cursor];
+	rDrawTo.right -= CursorOffsetX[Cursor];
+	rDrawTo.bottom -= CursorOffsetY[Cursor];
+	BBuffer->Blt(&rDrawTo, MouseSurface, cursor_rect, DDBLT_KEYSRC, NULL);
 }
 
 HRESULT ZSGraphicsSystem::DrawText(int x, int y, char *Text)

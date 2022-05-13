@@ -47,8 +47,11 @@ ZSEngine::ZSEngine()
 }
 
 
-//destructor
-BOOL ZSEngine::Init(HINSTANCE hInstance) 
+#ifdef USE_SDL
+BOOL ZSEngine::Init()
+#else
+BOOL ZSEngine::Init(HINSTANCE hInstance)
+#endif
 {
 	DEBUG_INFO("Beginning Engine Init\n");
 
@@ -58,10 +61,14 @@ BOOL ZSEngine::Init(HINSTANCE hInstance)
 	DEBUG_INFO("\n");
 
 	HWND WinHandle;
-
+#ifdef USE_SDL
+	WinHandle = ZSGraphics.Init();
+	ZSInput.Init();
+#else
 	WinHandle = ZSGraphics.Init(hInstance);
 
 	ZSInput.Init(WinHandle, hInstance, ZSGraphics.IsWindowed());
+#endif
 
 	FILE *fp;
 
@@ -95,7 +102,7 @@ BOOL ZSEngine::Init(HINSTANCE hInstance)
 	return TRUE;
 }
 
-
+//destructor
 ZSEngine::~ZSEngine() 
 {
 	DEBUG_INFO("Shutting down engine\n");

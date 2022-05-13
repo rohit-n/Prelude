@@ -49,9 +49,11 @@ private:
 	ZSTexture *TextureList;
 
 public:
-
+#ifdef USE_SDL
+	int Init();
+#else
 	int Init(HINSTANCE hInstance); //startup routine
-	
+#endif
 	void ReportError(char *text);	
 	void ReportError(HRESULT ddrval);
 
