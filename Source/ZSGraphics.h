@@ -204,7 +204,11 @@ private:
 	int CursorOffsetY[NUM_CURSORS];
 	D3DVERTEX MouseVerts[4];		//for highlighting the tile the mouse is over
 	int CurMouseCursor;
+#ifdef NO_DDRAW
+	ZSTexture* MouseTexture;
+#else
 	LPDIRECTDRAWSURFACE7 MouseSurface;
+#endif
 	int CircleFrame;
 	ZSTexture *CircleTextures[3];
 	
@@ -232,7 +236,7 @@ public:
 	
 	void Flip();
 
-	void TextureBlt(LPDIRECTDRAWSURFACE7 Dest, LPRECT rArea, ZSTexture *source);
+	void TextureBlt(LPRECT rArea, ZSTexture *source, float x, float y, float w, float h);
 
 	void DrawCursor(RECT *rDrawAt);
 	void AdvanceCursorFrame();

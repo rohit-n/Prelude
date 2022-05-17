@@ -719,26 +719,26 @@ void ZSGraphicsSystem::Flip()
 	};
 }
 
-void ZSGraphicsSystem::TextureBlt(LPDIRECTDRAWSURFACE7 Dest, LPRECT rArea, ZSTexture *source)
+void ZSGraphicsSystem::TextureBlt(LPRECT rArea, ZSTexture *source, float x, float y, float w, float h)
 {
 	D3DTLVERTEX v[4];
 
 	v[0].sx = (float)rArea->left;
 	v[0].sy = (float)rArea->top;
-	v[0].tu = 0.0f;
-	v[0].tv = 0.0f;
+	v[0].tu = x;
+	v[0].tv = y;
 	v[1].sx = (float)rArea->right;
 	v[1].sy = (float)rArea->top;
-	v[1].tu = 1.0f;
-	v[1].tv = 0.0f;
+	v[1].tu = x + w;
+	v[1].tv = y;
 	v[2].sx = (float)rArea->left;
 	v[2].sy = (float)rArea->bottom;
-	v[2].tu = 0.0f;
-	v[2].tv = 1.0f;
+	v[2].tu = x;
+	v[2].tv = y + h;
 	v[3].sx = (float)rArea->right;
 	v[3].sy = (float)rArea->bottom;
-	v[3].tu = 1.0f;
-	v[3].tv = 1.0f;
+	v[3].tu = x + w;
+	v[3].tv = y + h;
 
 	v[0].rhw = v[1].rhw = v[2].rhw = v[3].rhw = 1.0f;
 	v[0].specular = v[1].specular = v[2].specular = v[3].specular = v[0].specular = v[1].specular = v[2].specular = v[3].specular = D3DRGB(1.0f,1.0f,1.0f);
@@ -746,10 +746,11 @@ void ZSGraphicsSystem::TextureBlt(LPDIRECTDRAWSURFACE7 Dest, LPRECT rArea, ZSTex
 
 	D3DDevice->SetRenderState(D3DRENDERSTATE_FILLMODE, D3DFILL_SOLID);
 	D3DDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, D3DCULL_CCW);
-	D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHATESTENABLE, FALSE);
-	D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, FALSE);
-	D3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		               0x00000000, 1.0f, 0L );
+	//D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHATESTENABLE, FALSE);
+	//D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, FALSE);
+	D3DDevice->SetRenderState(D3DRENDERSTATE_ZENABLE, FALSE);
+	//D3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+		         //      0x00000000, 1.0f, 0L );
 
 	SetTexture(source);
 
@@ -769,14 +770,15 @@ void ZSGraphicsSystem::TextureBlt(LPDIRECTDRAWSURFACE7 Dest, LPRECT rArea, ZSTex
 //	Engine->Graphics()->GetD3D()->SetTextureStageState(0,D3DTSS_MAGFILTER,D3DTFG_LINEAR);
 //	Engine->Graphics()->GetD3D()->SetTextureStageState(0,D3DTSS_MINFILTER,D3DTFG_LINEAR);
 
-	D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHATESTENABLE, TRUE);
-	D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, TRUE);
-
+	//D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHATESTENABLE, TRUE);
+	//D3DDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, TRUE);
+	D3DDevice->SetRenderState(D3DRENDERSTATE_ZENABLE, TRUE);
+#if 0
 	if(FAILED(Dest->Blt(rArea,BBuffer,rArea,DDBLT_WAIT,NULL)))
 	{
 		SafeExit("Texture blt failed");
 	}
-	
+#endif
 }
 
 
@@ -1378,7 +1380,12 @@ HWND ZSGraphicsSystem::Init(HINSTANCE hInstance)
 	
 
 	DEBUG_INFO("Loading the mourse cursor file, ");
-	MouseSurface = CreateSurfaceFromFile("mousecursor.bmp",160,384,NULL,COLOR_KEY_FROM_FILE);
+#ifndef NO_DDRAW
+	MouseSurface = CreateSurfaceFromFile("mousecursor.bmp", 160, 384, NULL, COLOR_KEY_FROM_FILE);
+#else
+	MouseTexture = new ZSTexture("mousecursor.bmp", D3DDevice, DirectDraw, &KeyMask, 160, 384);
+#endif
+
 	DEBUG_INFO("done.\n\n");
 
 	DEBUG_INFO("Creating ZSFontEngine.\n");
@@ -1405,7 +1412,11 @@ ZSGraphicsSystem::ZSGraphicsSystem()
 		Direct3D = NULL;
 		Clipper = NULL;
 		WindowClipper = NULL;
+#ifndef NO_DDRAW
 		MouseSurface = NULL;
+#else
+		MouseTexture = NULL;
+#endif
 		ZBuf = NULL;
 		BBuffer = NULL;
 		Primary = NULL;
@@ -1445,11 +1456,15 @@ int ZSGraphicsSystem::ShutDown()
 	}
 
 	//release the surfaces
-	if(MouseSurface) 
+#ifndef NO_DDRAW
+	if (MouseSurface)
 	{
 		MouseSurface->Release();
 		MouseSurface = NULL;
 	}
+#else
+	delete MouseTexture;
+#endif
 	if (ZBuf) 
 	{
 		ZBuf->Release();
@@ -1542,7 +1557,15 @@ void ZSGraphicsSystem::DrawCursor(RECT *rDrawAt)
 	rDrawTo.top -= CursorOffsetY[Cursor];
 	rDrawTo.right -= CursorOffsetX[Cursor];
 	rDrawTo.bottom -= CursorOffsetY[Cursor];
+#ifndef NO_DDRAW
 	BBuffer->Blt(&rDrawTo, MouseSurface, cursor_rect, DDBLT_KEYSRC, NULL);
+#else
+	w = 32.0f / 160.0f;
+	h = 32.0f / 384.0f;
+	x = (float)cursor_rect->left / 160.0f;
+	y = (float)cursor_rect->top / 384.0f;
+	TextureBlt(&rDrawTo, MouseTexture, x, y, w, h);
+#endif
 }
 
 HRESULT ZSGraphicsSystem::DrawText(int x, int y, char *Text)

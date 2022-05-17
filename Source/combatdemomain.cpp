@@ -141,7 +141,13 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	//fill the primary and back buffers to 0
 	Engine->Graphics()->FillSurface(Engine->Graphics()->GetBBuffer(),0,NULL);
 
+#ifndef NO_DDRAW
 	LPDIRECTDRAWSURFACE7 LogoSurface, ProgressSurface;
+#else
+	ZSTexture* LogoTexture, *ProgressTexture;
+#endif
+
+	unsigned short texture_mask = 0;
 	
 	RECT rLogoTo;
 	RECT rProgressTo;
@@ -156,9 +162,13 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	rProgressTo.top = 128;
 	rProgressTo.bottom = 128 + 128;
 
-	LogoSurface = Engine->Graphics()->CreateSurfaceFromFile("logobanner.bmp",640,69,0, -1);
-
-	ProgressSurface = Engine->Graphics()->CreateSurfaceFromFile("loadtextures.bmp",128,128,0, -1);
+#ifndef NO_DDRAW
+	LogoSurface = Engine->Graphics()->CreateSurfaceFromFile("logobanner.bmp", 640, 69, 0, -1);
+	ProgressSurface = Engine->Graphics()->CreateSurfaceFromFile("loadtextures.bmp", 128, 128, 0, -1);
+#else
+	LogoTexture = new ZSTexture("logobanner.bmp", Engine->Graphics()->GetD3D(), Engine->Graphics()->GetDirectDraw(), &texture_mask, 640, 69);
+	ProgressTexture = new ZSTexture("loadtextures.bmp", Engine->Graphics()->GetD3D(), Engine->Graphics()->GetDirectDraw(), &texture_mask, 128, 128);
+#endif
 
 //	ShowWindow(hMainWindow, SW_SHOW);
 	
@@ -170,12 +180,19 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	pProgressText->SetTextColor(TEXT_WHITE);
 	pProgressText->Show();
 	pProgressText->Draw();
+
+#ifndef NO_DDRAW
 	Engine->Graphics()->GetBBuffer()->Blt(&rLogoTo, LogoSurface, NULL, NULL, NULL);
 	Engine->Graphics()->GetBBuffer()->Blt(&rProgressTo, ProgressSurface, NULL, NULL, NULL);
-	
-	Engine->Graphics()->Flip();
-	Engine->Graphics()->GetBBuffer()->Blt(NULL, Engine->Graphics()->GetPrimay(),NULL,NULL,NULL);
+#else
+	Engine->Graphics()->TextureBlt(&rLogoTo, LogoTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+	Engine->Graphics()->TextureBlt(&rProgressTo, ProgressTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+#endif
 
+	Engine->Graphics()->Flip();
+#ifndef NO_DDRAW
+	Engine->Graphics()->GetBBuffer()->Blt(NULL, Engine->Graphics()->GetPrimay(),NULL,NULL,NULL);
+#endif
 	FILE *fp;
 	fp = SafeFileOpen("gui.ini","rt");
 	assert(fp);
@@ -254,20 +271,32 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	pProgressText->Move(128 + 80,0);
 	pProgressText->SetText("Meshes");
 	pProgressText->Draw();
-	
+
+#ifndef NO_DDRAW
 	ProgressSurface->Release();
+#else
+	delete ProgressTexture;
+#endif
 
 	rProgressTo.left += 128 + 80;
 	rProgressTo.right += 128 + 80;
 	rProgressTo.bottom += 0;
 	rProgressTo.top += 0;
-	ProgressSurface = Engine->Graphics()->CreateSurfaceFromFile("loadmeshes.bmp",128,128,0, -1);
+
+#ifndef NO_DDRAW
+	ProgressSurface = Engine->Graphics()->CreateSurfaceFromFile("loadmeshes.bmp", 128, 128, 0, -1);
 	Engine->Graphics()->GetBBuffer()->Blt(&rLogoTo, LogoSurface, NULL, NULL, NULL);
 	Engine->Graphics()->GetBBuffer()->Blt(&rProgressTo, ProgressSurface, NULL, NULL, NULL);
+#else
+	ProgressTexture = new ZSTexture("loadmeshes.bmp", Engine->Graphics()->GetD3D(), Engine->Graphics()->GetDirectDraw(), &texture_mask, 128, 128);
+	Engine->Graphics()->TextureBlt(&rLogoTo, LogoTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+	Engine->Graphics()->TextureBlt(&rProgressTo, ProgressTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+#endif
 	
 	Engine->Graphics()->Flip();
+#ifndef NO_DDRAW
 	Engine->Graphics()->GetBBuffer()->Blt(NULL, Engine->Graphics()->GetPrimay(),NULL,NULL,NULL);
-
+#endif
 	fp = SafeFileOpen("mesh.bin","rb");
 	if(fp)
 	{
@@ -295,14 +324,26 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	rProgressTo.right += 128 + 80;
 	rProgressTo.bottom += 0;
 	rProgressTo.top += 0;
+#ifndef NO_DDRAW
 	ProgressSurface->Release();
-	ProgressSurface = Engine->Graphics()->CreateSurfaceFromFile("loaditems.bmp",128,128,0, -1);
+#else
+	delete ProgressTexture;
+#endif
+
+#ifndef NO_DDRAW
+	ProgressSurface = Engine->Graphics()->CreateSurfaceFromFile("loaditems.bmp", 128, 128, 0, -1);
 	Engine->Graphics()->GetBBuffer()->Blt(&rLogoTo, LogoSurface, NULL, NULL, NULL);
 	Engine->Graphics()->GetBBuffer()->Blt(&rProgressTo, ProgressSurface, NULL, NULL, NULL);
+#else
+	ProgressTexture = new ZSTexture("loaditems.bmp", Engine->Graphics()->GetD3D(), Engine->Graphics()->GetDirectDraw(), &texture_mask, 128, 128);
+	Engine->Graphics()->TextureBlt(&rLogoTo, LogoTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+	Engine->Graphics()->TextureBlt(&rProgressTo, ProgressTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+#endif
 	
 	Engine->Graphics()->Flip();
+#ifndef NO_DDRAW
 	Engine->Graphics()->GetBBuffer()->Blt(NULL, Engine->Graphics()->GetPrimay(),NULL,NULL,NULL);
-
+#endif
 	fp = fopen("items.bin","rb");
 	if(!fp)
 	{
@@ -333,13 +374,27 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	rProgressTo.right += 128 + 80;
 	rProgressTo.bottom += 0;
 	rProgressTo.top += 0;
+
+#ifndef NO_DDRAW
 	ProgressSurface->Release();
 	ProgressSurface = Engine->Graphics()->CreateSurfaceFromFile("loadmonsters.bmp",128,128,0, -1);
+#else
+	delete ProgressTexture;
+	ProgressTexture = new ZSTexture("loadmonsters.bmp", Engine->Graphics()->GetD3D(), Engine->Graphics()->GetDirectDraw(), &texture_mask, 128, 128);
+#endif
+
+#ifndef NO_DDRAW
 	Engine->Graphics()->GetBBuffer()->Blt(&rLogoTo, LogoSurface, NULL, NULL, NULL);
 	Engine->Graphics()->GetBBuffer()->Blt(&rProgressTo, ProgressSurface, NULL, NULL, NULL);
+#else
+	Engine->Graphics()->TextureBlt(&rLogoTo, LogoTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+	Engine->Graphics()->TextureBlt(&rProgressTo, ProgressTexture, 0.0f, 0.0f, 1.0f, 1.0f);
+#endif
 
 	Engine->Graphics()->Flip();
+#ifndef NO_DDRAW
 	Engine->Graphics()->GetBBuffer()->Blt(NULL, Engine->Graphics()->GetPrimay(),NULL,NULL,NULL);
+#endif
 
 	DEBUG_INFO("About to load Creatures\n");
 
@@ -359,9 +414,14 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	{
 		LoadBinCreatures(fp);
 	}
-	
+
+#ifndef NO_DDRAW
 	ProgressSurface->Release();
 	LogoSurface->Release();
+#else
+	delete ProgressTexture;
+	delete LogoTexture;
+#endif
 
 	fclose(fp);
 
